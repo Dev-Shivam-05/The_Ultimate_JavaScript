@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interest</title>
+</head>
+<body>
+    <h2 id="result" style="text-align: center;"></h2>
+    <h2 id="result2" style="text-align: center;"></h2>
+    <h2 id="result3" style="text-align: center;"></h2>
+    <h2 id="result4" style="text-align: center;"></h2>
+    <h2 id="result5" style="text-align: center;"></h2>
+
+    <script>
+        let investing_amount = parseInt(prompt("Enter Investing Amount :- "));
+        let time = prompt("Enter Time(in year) To Invest :- ");
+
+        let rate_of_interest = 8;
+        
+        let interest = (investing_amount * time * rate_of_interest) / 100,mature_amount = investing_amount + interest;
+        
+
+        document.getElementById('result').innerText = `Investing Amount Is :- ${investing_amount}`;
+        document.getElementById('result2').innerText = `Time of Intrest Is :- ${time}`;
+        document.getElementById('result3').innerText = `Rate Of Interest Per Year :- ${rate_of_interest}`;
+        document.getElementById('result4').innerText = `Total Intrest For ${time} Year Is :- ${interest}`;
+        document.getElementById('result5').innerText = `mature Amount Will Be :- ${mature_amount}`;
+    </script>
+</body>
+</html>

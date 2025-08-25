@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+</head>
+<body>
+    <h2 id="result" style="text-align: center;"></h2>
+    <h2 id="result2" style="text-align: center;"></h2>
+    <h2 id="result3" style="text-align: center;"></h2>
+    <h2 id="result4" style="text-align: center;"></h2>
+    <h2 id="result5" style="text-align: center;"></h2>
+    <h2 id="result6" style="text-align: center;"></h2>
+
+    <script>
+        let total_amount,discount,nettotal_amount;
+
+        let product_name = prompt("Enter Product Name :- ");
+        let product_price = prompt("Enter Product Price :- ");
+        let product_quantity = prompt("Enter Product Quantity :- ");
+        
+        total_amount = product_price * product_quantity;
+        discount = total_amount * 0.10;
+        nettotal_amount = total_amount - discount;
+        
+        document.getElementById('result').innerText = `Your Product Name Is :- ${product_name}`;
+        document.getElementById('result2').innerText = `Your Product Price Is :- ${product_price}`;
+        document.getElementById('result3').innerText = `Your Product Quantity Is :- ${product_quantity}`;
+        document.getElementById('result4').innerText = `Your Total Amount Is :- ${total_amount}`;
+        document.getElementById('result5').innerText = `Discount Applied Is :- ${discount}`;
+        document.getElementById('result6').innerText = `NetTotal Is :- ${nettotal_amount}`;
+    </script>
+</body>
+</html>

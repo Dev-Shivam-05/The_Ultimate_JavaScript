@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+</head>
+<body>
+    <h2 id="result" style="text-align: center;"></h2>
+    <script>
+        let percentage = parseInt(prompt("Enter How Much Percentage You Scored :- "));
+        let grade;
+        if (percentage >= 90) {
+            grade = 'A';
+        } else if (percentage >= 70)
+        {
+            grade = 'B';
+        } else if (percentage >= 50)
+        {
+            grade = 'C';
+        } else if (percentage >= 35)
+        {
+            grade = 'D';
+        }
+        else
+        {
+            grade = 'F';
+        }
+        document.getElementById('result').innerText = `According To ${percentage}% You have Achived ${grade} Grade.`;
+
+
+    /*
+        document.getElementById('num1').innerText = `Number 1 :- ${num_1}`;
+        document.getElementById('num2').innerText = `Number 2 :- ${num_2}`;
+        num_1 = num_1 + num_2;
+        num_2 = num_1 - num_2;
+        num_1 = num_1 - num_2;
+        
+        document.getElementById('heading').innerText = `After Swaping The Number Are :- `;
+        
+        document.getElementById('swaped-num1').innerText = `Number 1 :- ${num_1}`;
+        document.getElementById('swaped-num2').innerText = `Number 2 :- ${num_2}`;
+    */
+
+
+    </script>
+</body>
+</html>

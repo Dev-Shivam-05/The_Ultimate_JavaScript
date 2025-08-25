@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Calculator</title>
+</head>
+<body>
+    
+    <h1 id="results"></h1>
+
+    <script>
+        let num_1 = parseInt(prompt("Enter A Number :- "));
+        let num_2 = parseInt(prompt(`Enter A New Number To Perform Calculation With ${num_1} :- `));
+
+        let result = parseInt(prompt("1. Add 2.Subtraction 3.Product 4.Division 5.Modules Enter Your Choice :- "));
+
+        switch (result) {
+            case 1:
+                document.getElementById('results').innerText = `The Sum Of ${num_1} And ${num_2} Is ${num_1 + num_2}`;
+                break;
+        
+            case 2:
+                document.getElementById('results').innerText = `The Subtraction Of ${num_1} And ${num_2} Is ${num_1 - num_2}`;
+                break;
+        
+            case 3:
+                document.getElementById('results').innerText = `The Product Of ${num_1} And ${num_2} Is ${num_1 * num_2}`;
+                break;
+
+            case 4:
+                document.getElementById('results').innerText = `The Divison Of ${num_1} And ${num_2} Is ${num_1 / num_2}`;
+                break;
+        
+            case 5:
+                document.getElementById('results').innerText = `The Modules Of ${num_1} And ${num_2} Is ${num_1 % num_2}`;
+                break;
+        
+            default:
+                document.getElementById('results').innerText = "Wrong Choice.User";
+                break;
+        }
+    </script>
+</body>
+</html>

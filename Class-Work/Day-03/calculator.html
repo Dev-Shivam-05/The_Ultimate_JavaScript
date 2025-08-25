@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <h1 id="result"></h1>
+    <h2 id="result1"></h2>
+    <h3 id="result2"></h3>
+    <h4 id="result3"></h4>
+    <h5 id="result4"></h5>
+    <script>
+        let num_1 = parseInt(prompt("Enter A Number :- "));
+        let num_2 = parseInt(prompt(`Enter A Number To Perform Calculation With ${num_1} :- `));
+
+        document.getElementById('result').innerText = `The Sum Of ${num_1} And ${num_2} Is ${num_1 + num_2}`;
+        document.getElementById('result1').innerText = `The Subtraction Of ${num_1} And ${num_2} Is ${num_1 - num_2}`;
+        document.getElementById('result2').innerText = `The Product Of ${num_1} And ${num_2} Is ${num_1 * num_2}`;
+        document.getElementById('result3').innerText = `The Division Of ${num_1} And ${num_2} Is ${num_1 / num_2}`;
+        document.getElementById('result4').innerText = `The Module Of ${num_1} And ${num_2} Is ${num_1 % num_2}`;
+    </script>
+</body>
+</html>

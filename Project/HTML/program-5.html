@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employ Salary</title>
+</head>
+
+<body>
+    <h1>
+        Employ Salary
+    </h1>
+
+    <hr>
+
+    <h2 id="result"></h2>
+    <h2 id="result2"></h2>
+    <h2 id="result3"></h2>
+    <h2 id="result4"></h2>
+    <h2 id="result5"></h2>
+    <h2 id="result6"></h2>
+    <h2 id="result7"></h2>
+
+    <script>
+        let basic_employ_salary = parseInt(prompt("Enter Your Salary :- "));
+        let house_rent_allowance = basic_employ_salary * 0.2; 
+        let dearness_allowance = basic_employ_salary * 0.5; 
+        let medical_allowance = basic_employ_salary * 0.03; 
+        let ta = basic_employ_salary * 0.08; 
+        let pt = basic_employ_salary * 0.12; 
+        let tax_deducted_source = basic_employ_salary * 0.05; 
+        let professnioal_tax = 500;
+
+
+        document.getElementById('result').innerText = `Basic Salary : ${basic_employ_salary}`;
+        document.getElementById('result2').innerText = `Dearness Allowance : ${dearness_allowance}`;
+        document.getElementById('result3').innerText = `House Rent Allowance : ${house_rent_allowance}`;
+        document.getElementById('result4').innerText = `Medical_Allowance :- ${medical_allowance}`;
+        document.getElementById('result4').innerText = `Tax Deducted At Source :- ${professnioal_tax}`;
+        document.getElementById('result6').innerText = `Tax Deducted At Source :- ${tax_deducted_source}`;
+        document.getElementById('result7').innerText = `Professnioal Tax :- ${pt}`;
+    </script>
+</body>
+
+</html>
