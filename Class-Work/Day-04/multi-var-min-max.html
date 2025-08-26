@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Variable</title>
+</head>
+<body>
+    
+    <script>
+        let num_1 = parseInt(prompt("Enter First number:"));
+        let num_2 = parseInt(prompt("Enter Second number:"));
+        let num_3 = parseInt(prompt("Enter Third number:"));
+        let num_4 = parseInt(prompt("Enter Fourth number:"));
+        let num_5 = parseInt(prompt("Enter Fifth number:"));
+        let max, min;
+        // Finding maximum
+        
+        if (num_1 >= num_2 && num_1 >= num_3 && num_1 >= num_4 && num_1 >= num_5) {
+            max = num_1;
+        }
+        else if (num_2 >= num_1 && num_2 >= num_3 && num_2 >= num_4 && num_2 >= num_5) {
+            max = num_2;
+        }
+        else if (num_3 >= num_1 && num_3 >= num_2 && num_3 >= num_4 && num_3 >= num_5) {
+            max = num_3;
+        }
+        else if (num_4 >= num_1 && num_4 >= num_2 && num_4 >= num_3 && num_4 >= num_5) {
+            max = num_4;
+        }
+        else {
+            max = num_5;
+        }
+        // Finding minimum
+
+        if (num_1 <= num_2 && num_1 <= num_3 && num_1 <= num_4 && num_1 <= num_5) {
+            min = num_1;
+        }
+        else if (num_2 <= num_1 && num_2 <= num_3 && num_2 <= num_4 && num_2 <= num_5) {
+            min = num_2;
+        }
+        else if (num_3 <= num_1 && num_3 <= num_2 && num_3 <= num_4 && num_3 <= num_5) {
+            min = num_3;
+        }
+        else if (num_4 <= num_1 && num_4 <= num_2 && num_4 <= num_3 && num_4 <= num_5) {
+            min = num_4;
+        }
+        else {
+            min = num_5;
+        }
+
+        alert(`Maximum number is ${max} and Minimum number is ${min}`);
+    </script>
+</body>
+</html>

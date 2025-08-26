@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Progress</title>
+</head>
+<body>
+    
+    <script>
+        let progress = {
+            author: "Shivam",
+            password: 9106988376,
+            email: "shivambhadoriya1605@gmail.com"
+        };
+
+        let username = prompt("Enter your username:");
+        let password = parseInt(prompt("Enter your password:"));
+
+        if (username === progress.author && password === progress.password) {
+            alert("Login successful!");
+        } else {
+            alert("Login failed. Please check your username and password.");
+        }
+    </script>
+</body>
+</html>
