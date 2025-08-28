@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css" />
+  </head>
+
+  <body>
+    <script>
+      let P = 600000,
+        T = 12,
+        R;
+
+      if (P >= 500000 && T >= 5) {
+        R = 0.095;
+      } else if (P >= 300000 && T >= 5) {
+        R = 0.075;
+      } else if (P >= 150000 && T >= 3) {
+        R = 0.045;
+      } else {
+        R = 2.5;
+      }
+
+      let ROI = R * 100;
+      let SI = (ROI*P*T) / 100;
+      let mature_amount = P + SI; 
+      console.log(`Invested Amount Is ${P}.`);
+      console.log(`For ${T} Years.`);
+      console.log(`At ${ROI}% Of Rate Of Intresrt.`);
+      console.log(`The Mature Amount You'll Get Is ${mature_amount}.`);
+    </script>
+  </body>
+</html>

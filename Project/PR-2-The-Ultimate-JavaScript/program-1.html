@@ -1,11 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Marksheet</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
 </head>
+
 <body>
-    
+
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">A.C.H.</th>
+                <th scope="col">P.A.</th>
+                <th scope="col">R.O.I.</th>
+                <th scope="col">Total Marks</th>
+                <th scope="col">Avg</th>
+                <th scope="col">Status</th>
+                <th scope="col">Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row" id="std_id"></th>
+                <td id="std_name"></td>
+                <td id="std_course"></td>
+                <td id="std_marks_total"></td>
+                <td id="std_avg"></td>
+                <td id="std_status"></td>
+                <td id="std_grade"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="./js/bootstrap.bundle.js" type="text/javaScript"></script>
+
+    <script>
+        let id = prompt("Enter Your Student id :- ");
+        let name = prompt("Enter Student Name :- ");
+        let course = prompt("Enter Student Course :- ");
+        let std_module_1 = parseInt(prompt("Enter Student HTML/CSS Marks :- "));
+        let std_module_2 = parseInt(prompt("Enter Student Bootstrap Marks :- "));
+        let std_module_3 = parseInt(prompt("Enter Student JavaScript Marks :- "));
+        let std_module_4 = parseInt(prompt("Enter Student C++ Marks :- "));
+        let std_module_5 = parseInt(prompt("Enter Student DSA Marks :- "));
+        let total_marks = std_module_1 + std_module_2 + std_module_3 + std_module_4 + std_module_5;
+        let grade, status;
+
+        let average = (total_marks / 500) * 100;
+
+        if (average <= 60) {
+            status = "Fail";
+            grade = "F";
+        } else {
+            status = "Pass";
+            if (average >= 90) {
+                grade = 'A+';
+            } else if (average >= 80) {
+                grade = 'A';
+            } else if (average >= 70) {
+                grade = 'B+';
+            } else {
+                grade = 'B';
+            }
+        }
+        document.getElementById('std_id').innerText = `${id}`;
+        document.getElementById('std_name').innerText = `${name}`;
+        document.getElementById('std_course').innerText = `${course}`;
+        document.getElementById('std_marks_total').innerText = `${total_marks}`;
+        document.getElementById('std_avg').innerText = `${average}`;
+        document.getElementById('std_status').innerText = `${status}`;
+        document.getElementById('std_grade').innerText = `${grade}`;
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="bill border border-4 border-black px-5 mt-5" style="width: 550px;">
+            <h2 class="text-center mb-2">*************************</h2>
+            <h2 class="text-center">Zudio Receipt</h2>
+            <h2 class="text-center mt-2">*************************</h2>
+
+            <h2 class="text-center mb-2">---------------------------------</h2>
+            
+            <!-- User Name Section -->
+            <ul class="list-unstyled">
+                <li class="d-flex justify-content-between">
+                    <div class="user-product">
+                        <span id="customer_name" class="fw-medium"></span>
+                    </div>
+                    <div class="product-price">
+                        <span id="bill_number" class="fw-medium"></span>
+                    </div>
+                </li>
+            </ul>
+            
+            <h2 class="text-center mb-2">---------------------------------</h2>
+
+            <!-- Price Section -->
+            <ul class="list-unstyled">
+                <li class="d-flex justify-content-between">
+                    <div class="user-product">
+                        <span id="qty" class="fw-medium"></span>
+                        <span id="product" class="fw-medium"></span>
+                    </div>
+                    <div class="product-price">
+                        <span id="price" class="fw-medium"></span>
+                    </div>
+                </li>
+            </ul>
+
+            <h2 class="text-center">---------------------------------</h2>
+            <h2 class="text-center">---------------------------------</h2>
+
+            <ul class="list-unstyled">
+                
+                <li class="d-flex justify-content-between">
+                    <div class="user-product">
+                        <span class="text-uppercase fw-bold">Total Amount</span>
+                    </div>
+                    <div class="product-price">
+                        <span id="cash_price" class="fw-bold"></span>
+                    </div>
+                </li>
+                <li class="d-flex justify-content-between">
+                    <div class="user-product">
+                        <span class="text-uppercase fw-bold">Discounted Amount</span>
+                    </div>
+                    <div class="product-price">
+                        <span id="discount_price" class="fw-bold"></span>
+                    </div>
+                </li>
+                <li class="d-flex justify-content-between">
+                    <div class="user-product">
+                        <span class="text-uppercase fw-bold">Net Total</span>
+                    </div>
+                    <div class="product-price">
+                        <span id="total_price" class="fw-bold"></span>
+                    </div>
+                </li>
+            </ul>
+
+            <h2 class="text-center">---------------------------------</h2>
+
+            <h2 class="text-center">----- Thank You! -----</h2>
+        </div>
+    </div>
+
+    <script>
+        let bill_no = "5623GSMJEDGTW";
+        let c_name = prompt("Enter Your Name :- ");
+        let product_name = prompt("Enter Product Name :- ");
+        let product_price = parseInt(prompt("Enter Product Price :- "));
+        let product_qty = parseInt(prompt("Enter Product Quantity :- "));
+        let total_amount = product_price * product_qty;
+        let discount;
+
+        if (total_amount >= 15000) {
+            discount = .2;
+        } else if (total_amount >= 10000){
+            discount >= .15;
+        } else if (total_amount >= 5000){
+            discount >= .05;
+        } else {
+            discount = .02;
+        }
+
+        let discount_amount = total_amount * discount;
+        let net_total = total_amount - discount_amount;
+
+        document.getElementById('customer_name').innerText = `${c_name}`;
+        document.getElementById('bill_number').innerText = `${bill_no}`;
+        document.getElementById('qty').innerText = `${product_qty}x`;
+        document.getElementById('product').innerText = `${product_name}`;
+        document.getElementById('price').innerText = `Rs. ${product_price}`;
+        // document.getElementById('price').innerText += `${product_price}`;
+        
+        document.getElementById('total_price').innerText = `Rs. ${net_total}`;
+        document.getElementById('cash_price').innerText = `Rs. ${total_amount}`;
+        // document.getElementById('cash_price').innerText = `Rs.${total_amount}`;
+        document.getElementById('discount_price').innerText = `Rs. ${discount_amount}`;
+</script>
+</body>
+
+</html>
