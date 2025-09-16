@@ -1,105 +1,261 @@
-# 🔁 Repetition Logic – Pattern Programs in JavaScript ✨
+# 🚀 The Ultimate JavaScript Project – Repetition Logic 🔁  
 
-Welcome to **Repetition Logic**, a collection of fun and creative **pattern printing programs** written in **JavaScript**. 🚀  
-This project is part of my journey in **The Ultimate JavaScript Series** where I explore loops, logic, and problem-solving.  
+Welcome to **The Ultimate JavaScript Project** 🎉  
+This project is my coding playground where I explore **loops (for, while, do...while)** and learn problem-solving through **real coding challenges** 💻✨  
 
-Each program demonstrates the power of **for loops** 🔄 and **nested loops** to build fascinating patterns! 🎨  
+Every program is powered by **JavaScript (Node.js)** 🟨 and focuses on **logic building** 🔮.  
 
 ---
 
 ## 📂 Project Structure  
 ```
-Repetition Logic/
-│── program-1.js  
-│── program-2.js  
-│── program-3.js  
-│── program-4.js  
-│── program-5.js  
-│── program-6.js  
-│── program-7.js  
-│── program-8.js  
-│── Screenshots/  
-│── README.md  
+The Ultimate JavaScript/
+│── For Loops/
+│── While Loops/
+│── Do While Loops/
+│── Repetation Programs/
+│── Screenshots/
+│── README.md
 ```
 
 ---
 
-## 📸 Screenshots & Descriptions  
+# A. 🔄 For Loop Programs (10)
 
-### 1️⃣ Program 1 – Increasing Number Triangle 🔺  
-**Description:** Prints a **right‑angled triangle** of increasing numbers.  
-📷 Screenshot:  
-![Program 1]<img width="997" height="232" alt="program-1" src="https://github.com/user-attachments/assets/96bceee6-8db3-471c-b455-d90a68a94668" />
-
----
-
-### 2️⃣ Program 2 – Decreasing Number Triangle 🔻  
-**Description:** Prints a **reverse right‑angled triangle** with numbers decreasing row by row.  
-📷 Screenshot:  
-![Program 2]<img width="982" height="290" alt="program-2" src="https://github.com/user-attachments/assets/19d4d390-7a53-4d8b-a432-a6423ae965ec" />
-
+### 1️⃣ Print numbers from 1 to 10
+📸 Screenshot:  
+![For Loop 1]     
+<img width="1268" height="100" alt="program-1" src="https://github.com/user-attachments/assets/408105d4-83d1-48c9-84e8-bb95458b2de0" />
 
 ---
 
-### 3️⃣ Program 3 – Pyramid of Numbers ⛰️  
-**Description:** Builds a **pyramid** pattern with numbers starting from 5 downwards.  
-📷 Screenshot:  
-![Program 3]<img width="992" height="218" alt="program-3" src="https://github.com/user-attachments/assets/35881448-58ff-4291-9ad5-cef140f88e9e" />
-
+### 2️⃣ Print even numbers from 1 to 20
+📸 Screenshot:  
+![For Loop 2] <img width="1367" height="413" alt="program-2" src="https://github.com/user-attachments/assets/8ec499cd-8bd6-4cb1-9bed-5cf6e029a9a3" />
 
 ---
 
-### 4️⃣ Program 4 – Inverted Pyramid 🔄  
-**Description:** Prints an **inverted pyramid** of numbers with decreasing rows.  
-📷 Screenshot:  
-![Program 4]<img width="1110" height="267" alt="program-4" src="https://github.com/user-attachments/assets/3012f722-b822-476e-8765-21cc59cf71bd" />
+### 3️⃣ Print odd numbers from 1 to 20
+📸 Screenshot:  
+![For Loop 3] <img width="1273" height="111" alt="program-3" src="https://github.com/user-attachments/assets/0ef5f91d-dbcd-483a-8bf6-322d23b4b201" />
+
 
 
 ---
 
-### 5️⃣ Program 5 – Diamond Outline 💎  
-**Description:** Combines forward and reverse logic to form a **diamond-like structure** with numbers.  
-📷 Screenshot:  
-![Program 5]<img width="1146" height="287" alt="program-5" src="https://github.com/user-attachments/assets/0a42782c-2991-4689-9018-4e746568f50b" />
+### 4️⃣ Print multiplication table of 5
+📸 Screenshot:  
+![For Loop 4] <img width="1297" height="383" alt="program-4" src="https://github.com/user-attachments/assets/0702c201-94c9-4115-a101-82bc38c91804" />
 
 
 ---
 
-### 6️⃣ Program 6 – Centered Number Pyramid ⏫  
-**Description:** Displays numbers in a **center-aligned pyramid**.  
-📷 Screenshot:  
-![Program 6]<img width="1112" height="287" alt="program-6" src="https://github.com/user-attachments/assets/8f81db32-9461-4f2e-91e0-bc4a88747566" />
+### 5️⃣ Find the sum of first 10 natural numbers
+📸 Screenshot:  
+![For Loop 5] <img width="1308" height="112" alt="program-5" src="https://github.com/user-attachments/assets/70c29f50-6bb9-4cac-99d6-ca5725a197aa" />
 
 
 ---
 
-### 7️⃣ Program 7 – Growing Number Hill 🌄  
-**Description:** Creates a **hill-shaped pattern** with numbers expanding outwards.  
-📷 Screenshot:  
-![Program 7]<img width="978" height="287" alt="program-7" src="https://github.com/user-attachments/assets/5c459476-e0d3-4712-8bcf-5934e2f0fce4" />
+### 6️⃣ Find factorial of a number (e.g., 5!)
+📸 Screenshot:  
+![For Loop 6] <img width="1287" height="122" alt="program-6" src="https://github.com/user-attachments/assets/3f814054-20ae-4073-94f4-76b47ecca6d9" />
 
 
 ---
 
-### 8️⃣ Program 8 – Star Pyramid ⭐  
-**Description:** Prints a **beautiful pyramid of stars**.  
-📷 Screenshot:  
-![Program 8]<img width="1063" height="293" alt="program-8" src="https://github.com/user-attachments/assets/6f1411bf-ec98-4881-b4a9-f44ece5a78b3" />
+### 7️⃣ Reverse a string (without using built-in reverse)
+📸 Screenshot:  
+![For Loop 7] <img width="1290" height="101" alt="program-7" src="https://github.com/user-attachments/assets/a1292740-4316-4580-85e9-1bdc95dc8bc5" />
 
+
+---
+
+### 8️⃣ Print Fibonacci series (first 10 terms)
+📸 Screenshot:  
+![For Loop 8] <img width="1291" height="111" alt="program-8" src="https://github.com/user-attachments/assets/ee4d1080-e28a-4b14-a4ec-4af938fc06ab" />
+
+
+---
+
+### 9️⃣ Print a right-angled triangle pattern with `*`
+📸 Screenshot:  
+![For Loop 9] <img width="1286" height="207" alt="program-9" src="https://github.com/user-attachments/assets/c982d7fa-662b-41f7-900b-e443e7643343" />
+
+
+---
+
+### 🔟 Count vowels in a string
+📸 Screenshot:  
+![For Loop 10] <img width="1301" height="116" alt="program-10" src="https://github.com/user-attachments/assets/02d78c0b-3194-427b-b2ce-9023a2b29210" />
+
+
+---
+
+# B. 🔁 While Loop Programs (10)
+
+### 1️⃣ Print numbers from 1 to 10
+📸 Screenshot:  
+![While Loop 1] <img width="1301" height="102" alt="program-1" src="https://github.com/user-attachments/assets/709f34b4-2ae6-4bb6-b44a-83075d005791" />
+
+
+---
+
+### 2️⃣ Print numbers in reverse from 10 to 1
+📸 Screenshot:  
+![While Loop 2] <img width="1382" height="132" alt="program-2" src="https://github.com/user-attachments/assets/93461ee7-0715-47cc-8d66-c62937e54ac7" />
+
+
+
+---
+
+### 3️⃣ Find sum of digits of a number
+📸 Screenshot:  
+![While Loop 3] <img width="1403" height="130" alt="program-3" src="https://github.com/user-attachments/assets/e48bfe50-94c5-4b4c-9f42-5579848d65f3" />
+
+
+---
+
+### 4️⃣ Find reverse of a number
+📸 Screenshot:  
+![While Loop 4] <img width="1412" height="117" alt="program-4" src="https://github.com/user-attachments/assets/55d05040-d9e9-4c1d-8173-f97db6faf112" />
+
+
+---
+
+### 5️⃣ Check if a number is palindrome
+📸 Screenshot:  
+![While Loop 5] <img width="1297" height="117" alt="program-5" src="https://github.com/user-attachments/assets/0a034352-27f7-4c8f-902e-70f803fb0164" />
+
+
+---
+
+### 6️⃣ Print multiplication table of a given number
+📸 Screenshot:  
+![While Loop 6] <img width="1350" height="380" alt="program-6" src="https://github.com/user-attachments/assets/68d350e9-8771-4db1-b567-10e6e1583fd5" />
+
+
+---
+
+### 7️⃣ Find smallest digit in a number
+📸 Screenshot:  
+![While Loop 7] <img width="1388" height="116" alt="program-7" src="https://github.com/user-attachments/assets/108dc054-61ec-4634-82b3-c9e47906c111" />
+
+
+---
+
+### 8️⃣ Find largest digit in a number
+📸 Screenshot:  
+![While Loop 8] <img width="1387" height="126" alt="program-8" src="https://github.com/user-attachments/assets/4026f1d5-ef5e-448e-9787-2dc92f637c9f" />
+
+
+---
+
+### 9️⃣ Count digits in a number
+📸 Screenshot:  
+![While Loop 9] <img width="1283" height="125" alt="program-9" src="https://github.com/user-attachments/assets/acb778f5-b60a-4e33-a1fa-ff19e9f2f91a" />
+
+
+---
+
+### 🔟 Print all factors of a number
+📸 Screenshot:  
+![While Loop 10] <img width="1312" height="106" alt="program-10" src="https://github.com/user-attachments/assets/a70e9919-d29f-4ad3-8607-35106dd54234" />
+
+
+---
+
+# C. 🔂 Do...While Loop Programs (10)
+
+### 1️⃣ Print numbers from 1 to 10
+📸 Screenshot:  
+![Do While Loop 1] <img width="1360" height="105" alt="program-1" src="https://github.com/user-attachments/assets/b20e99c9-e8ec-46dc-8832-3e3046653e22" />
+
+
+---
+
+### 2️⃣ Print numbers from 10 to 1
+📸 Screenshot:  
+![Do While Loop 2] <img width="1336" height="115" alt="program-2" src="https://github.com/user-attachments/assets/7c91bc1d-9a4c-47fd-9228-ee8eaa6ee802" />
+
+
+---
+
+### 3️⃣ Sum of numbers until user enters 0
+📸 Screenshot:  
+![Do While Loop 3] <img width="1340" height="200" alt="program-3" src="https://github.com/user-attachments/assets/9118921d-21ed-4707-8dac-97b75c90f707" />
+
+
+---
+
+### 4️⃣ Print first 10 odd numbers
+📸 Screenshot:  
+![Do While Loop 4] <img width="1337" height="108" alt="program-4" src="https://github.com/user-attachments/assets/dc06a27d-5576-453a-9d4a-294cd3378be2" />
+
+
+---
+
+### 5️⃣ Print first 10 even numbers
+📸 Screenshot:  
+![Do While Loop 5] <img width="1340" height="111" alt="program-5" src="https://github.com/user-attachments/assets/abe3c484-22b6-4a93-a9a0-bd48a7a6b088" />
+
+
+---
+
+### 6️⃣ Print cube of numbers from 1 to 5
+📸 Screenshot:  
+![Do While Loop 6] <img width="1342" height="205" alt="program-6" src="https://github.com/user-attachments/assets/3ea6f032-82a4-4665-bc68-b0bccb963bad" />
+
+
+---
+
+### 7️⃣ Find product of digits of a number
+📸 Screenshot:  
+![Do While Loop 7] <img width="1332" height="118" alt="program-7" src="https://github.com/user-attachments/assets/fb34768a-65d4-4f25-a297-02868fcf3c92" />
+
+
+---
+
+### 8️⃣ Check Armstrong number (e.g., 153)
+📸 Screenshot:  
+![Do While Loop 8] <img width="1343" height="118" alt="program-8" src="https://github.com/user-attachments/assets/9d15e10b-446c-4540-b387-7734cb92573f" />
+
+
+---
+
+### 9️⃣ Generate Fibonacci series up to 50
+📸 Screenshot:  
+![Do While Loop 9] <img width="1321" height="115" alt="program-9" src="https://github.com/user-attachments/assets/2a150d58-4bb3-46ef-b749-5a103ec64d65" />
+
+
+---
+
+### 🔟 Print pattern (square of * of size 5)
+📸 Screenshot:  
+![Do While Loop 10] <img width="1367" height="212" alt="program-10" src="https://github.com/user-attachments/assets/c15420b1-dcef-4ef9-94f9-d6f8d01d825a" />
+
+
+---
+
+# ✨ Repetition Logic Programs  
+
+Special programs built using **nested loops and patterns** 🎨  
+
+📂 Located in `Repetation Programs/`  
 
 ---
 
 ## 🛠️ Tech Used  
 - **JavaScript (Node.js)** 🟨  
-- **Loops & Nested Loops** 🔄  
-- **Logical Thinking & Pattern Design** 🎨  
+- **For, While, Do...While loops** 🔄  
+- **Pattern Building** 🎨  
 
 ---
 
 ## 🎯 Learning Outcomes  
-✅ Mastered **for loops** and **nested loops**  
-✅ Understood how to manipulate **spaces & numbers** to create patterns  
-✅ Improved logical thinking for solving **complex problems**  
+✅ Strong grip on loops  
+✅ Hands-on practice with logic building  
+✅ Improved coding confidence  
 
 ---
 
@@ -114,7 +270,7 @@ Repetition Logic/
 ## ⭐ Support  
 If you like this project:  
 - 🌟 Star the repo  
-- 🔀 Fork it & try your own patterns  
-- 💡 Share your ideas for new patterns  
+- 🔀 Fork it  
+- 💡 Share new pattern ideas  
 
-> *“Logic is the canvas, loops are the brush, and patterns are the art!”* 🎨  
+> *“Loops turn logic into art!”* 🎨
