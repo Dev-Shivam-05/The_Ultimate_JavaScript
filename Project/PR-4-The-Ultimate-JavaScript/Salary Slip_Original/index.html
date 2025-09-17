@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Salary Slip</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <h2 class="text-center">Salary Slip</h2>
+      <form action="" class="text-center">
+        <div class="mb-3">
+          <label class="form-label" for="e_name">Employee Name</label>
+          <input
+            type="text"
+            id="e_name"
+            name="e_name"
+            placeholder="Enter Employee Name"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="e_salary">Basic Salary</label>
+          <div class="input-group">
+            <input
+              type="number"
+              id="e_salary"
+              name="e_salary"
+              placeholder="Enter Basic Salary"
+            />
+            <span class="input-group-text">₹</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="e_hra">House Rent Allowance</label>
+          <div class="input-group">
+            <input
+              type="number"
+              id="e_hra"
+              name="e_hra"
+              placeholder="Enter House Rent Allowance"
+            />
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="e_da">Dearness Allowance</label>
+          <div class="input-group">
+            <input
+              type="number"
+              id="e_da"
+              name="e_da"
+              placeholder="Enter Dearness Allowance"
+            />
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="e_da">Travel Allowance</label>
+          <div class="input-group">
+            <input
+              type="number"
+              id="e_ta"
+              name="e_ta"
+              placeholder="Enter Travel Allowance"
+            />
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="e_ma">Medical Allowance</label>
+          <div class="input-group">
+            <input
+              type="number"
+              id="e_ma"
+              name="e_ma"
+              placeholder="Enter Medical Allowance"
+            />
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="e_pf">Provident Fund</label>
+          <div class="input-group">
+            <input
+              type="number"
+              id="e_pf"
+              name="e_pf"
+              placeholder="Enter Provident Fund"
+            />
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="e_tds">Tax Deducted at Source</label>
+          <div class="input-group">
+            <input
+              type="number"
+              id="e_tds"
+              name="e_tds"
+              placeholder="Enter Tax Deducted at Source"
+            />
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="e_tds">Profession Tax</label>
+          <select name="" id="">
+            <option value="0">0</option>
+            <option value="200" selected>200</option>
+            <option value="400">400</option>
+            <option value="600">600</option>
+            <option value="800">800</option>
+            <option value="1000">1000</option>
+          </select>
+        </div>
+
+        <div class="mb-3 text-center">
+          <button class="btn btn-primary" onclick="displaySalarySlip()">
+            Print Salary Slip
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="row justify-content-center d-none" id="result" class="text-center">
+      <div class="col-md-6">
+        <h2 class="text-center">Salary Slip</h2>
+        <table class="table table-bordered">
+          <tr>
+            <th>Employee Name</th>
+            <td id="employe_name"></td>
+          </tr>
+          <tr>
+            <th>Basic Salary</th>
+            <td id="employe_salary"></td>
+          </tr>
+          <tr>
+            <th>House Rent Allowance</th>
+            <td id="employe_hra"></td>
+          </tr>
+          <tr>
+            <th>Dearness Allowance</th>
+            <td id="employe_da"></td>
+          </tr>
+          <tr>
+            <th>Travel Allowance</th>
+            <td id="employe_ta"></td>
+          </tr>
+          <tr>
+            <th>Medical Allowance</th>
+            <td id="employe_ma"></td>
+          </tr>
+          <tr>
+            <th>Provident Fund</th>
+            <td id="employe_pf"></td>
+          </tr>
+          <tr>
+            <th>Tax deducted at source</th>
+            <td id="employe_tds"></td>
+          </tr>
+          <tr>
+            <th>Professional Tax</th>
+            <td id="employe_pt"></td>
+          </tr>
+          <tr>
+            <th>Gross Salary</th>
+            <td id="gross_salary"></td>
+          </tr>
+          <tr>
+            <th>Deduction</th>
+            <td id="deduct_salary"></td>
+          </tr>
+          <tr>
+            <th>Net Salary</th>
+            <th id="net_salary"></th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
