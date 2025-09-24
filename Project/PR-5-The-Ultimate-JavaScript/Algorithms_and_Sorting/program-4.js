@@ -2,7 +2,7 @@
 
 const BinarySearch = (arr, targeted_value) => {
   let start = 0;
-  let end = arr.length() - 1;
+  let end = arr.length - 1;
 
   while (start <= end) {
     let mid = parseInt(start + (end - start) / 2);
