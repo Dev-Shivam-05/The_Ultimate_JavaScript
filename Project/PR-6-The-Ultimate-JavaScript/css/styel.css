@@ -1,0 +1,21 @@
+:root{
+  --theme-blue: #0D6EFD !important;
+  --theme-white: #ffffff !important;
+}
+
+.nav-item .nav-link{
+  margin: 0 5px !important;
+  transition: all 0.4s ease !important;
+}
+
+.nav-item .nav-link:hover {
+  background-color: var(--theme-blue) !important;
+  color: var(--theme-white) !important;
+  border-radius: 10px !important;
+}
+
+.carousel-image
+{
+  object-fit: cover !important;
+  height: 80vh !important;
+}
