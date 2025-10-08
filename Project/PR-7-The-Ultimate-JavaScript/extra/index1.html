@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Beast Mode Radar + River + Blockquote</title>
+    <style>
+      :root {
+        --bg: #0b0507;
+        --grid: rgba(255, 149, 0, 0.06);
+        --grid-bright: rgba(255, 149, 0, 0.18);
+        --accent: #ff9500;
+        --accent-2: #ffcc00;
+        --text: #fff7ea;
+        --duration: 5s; /* radar sweep duration */
+        --size: 360px; /* Radar size */
+      }
+
+      /* Reset + layout */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: radial-gradient(
+          1200px 1200px at 50% 30%,
+          #1a0808 10%,
+          #100606 55%,
+          #0b0507 100%
+        );
+        color: var(--text);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+      }
+      .hud {
+        min-height: 100%;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        position: relative;
+        overflow: hidden; /* contain river */
+      }
+
+      /* Subtle animated grid background */
+      .hud::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+            0deg,
+            transparent 0 29px,
+            var(--grid) 29px 30px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 29px,
+            var(--grid) 29px 30px
+          );
+        mask: radial-gradient(
+          ellipse at center,
+          rgba(0, 0, 0, 0.9),
+          rgba(0, 0, 0, 0.4)
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+      .hud::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at center,
+            rgba(255, 149, 0, 0.05) 0 25%,
+            transparent 30% 100%
+          ),
+          radial-gradient(
+            circle at 20% 10%,
+            rgba(255, 204, 0, 0.06),
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at 80% 85%,
+            rgba(255, 149, 0, 0.04),
+            transparent 40%
+          );
+        filter: blur(4px);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .panel {
+        display: grid;
+        gap: 18px;
+        place-items: center;
+        position: relative;
+        z-index: 2; /* above river/background */
+      }
+
+      /* Radar core */
+      .radar {
+        width: var(--size);
+        height: var(--size);
+        position: relative;
+        border-radius: 50%;
+        background:
+    /* rings */ repeating-radial-gradient(
+            circle at center,
+            var(--grid) 0 2px,
+            transparent 2px 28px
+          ),
+          radial-gradient(
+            circle at center,
+            rgba(255, 149, 0, 0.08),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at center,
+            rgba(255, 149, 0, 0.1),
+            transparent 40%
+          ),
+          radial-gradient(circle at center, rgba(0, 0, 0, 0.2), transparent 70%);
+        box-shadow: 0 0 0 2px rgba(255, 149, 0, 0.25) inset,
+          0 0 24px rgba(255, 149, 0, 0.15), 0 0 80px rgba(255, 149, 0, 0.08),
+          0 0 120px rgba(255, 149, 0, 0.05); /* Enhanced: added extra glow layer */
+        overflow: hidden;
+        transition: box-shadow 0.3s ease; /* Enhanced: subtle hover transition */
+      }
+
+      .radar:hover {
+        box-shadow: 0 0 0 2px rgba(255, 149, 0, 0.35) inset,
+          0 0 32px rgba(255, 149, 0, 0.25), 0 0 100px rgba(255, 149, 0, 0.12),
+          0 0 140px rgba(255, 149, 0, 0.08); /* Enhanced: glow intensifies on hover */
+      }
+
+      /* Crosshair lines */
+      .radar .crosshair {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            transparent calc(50% - 1px),
+            var(--grid-bright) calc(50% - 1px) calc(50% + 1px),
+            transparent calc(50% + 1px)
+          ),
+          linear-gradient(
+            90deg,
+            transparent calc(50% - 1px),
+            var(--grid-bright) calc(50% - 1px) calc(50% + 1px),
+            transparent calc(50% + 1px)
+          );
+        pointer-events: none;
+      }
+
+      /* Rotating sweep (wedge) */
+      .sweep {
+        position: absolute;
+        inset: -2%;
+        border-radius: 50%;
+        background: conic-gradient(
+          from 0deg,
+          rgba(255, 149, 0, 0.45) 0deg,
+          rgba(255, 149, 0, 0.28) 8deg,
+          rgba(255, 149, 0, 0.15) 16deg,
+          rgba(255, 149, 0, 0) 22deg
+        );
+        filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.65))
+          drop-shadow(0 0 36px rgba(255, 149, 0, 0.25))
+          drop-shadow(0 0 50px rgba(255, 149, 0, 0.15)); /* Enhanced: added extra drop-shadow for deeper glow */
+        animation: spin var(--duration) linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Countdown number (static for now; update with JS if needed) */
+      .count {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-size: clamp(48px, 9vw, 120px);
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-shadow: 0 0 12px rgba(255, 149, 0, 0.8),
+          0 0 36px rgba(255, 149, 0, 0.35),
+          0 0 60px rgba(255, 149, 0, 0.2); /* Enhanced: added extra text-shadow for more intensity */
+      }
+
+      /* Controls */
+      .controls {
+        display: flex;
+        gap: 12px;
+      }
+      button {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 149, 0, 0.22),
+          rgba(255, 149, 0, 0.12)
+        );
+        color: var(--text);
+        border: 1px solid rgba(255, 149, 0, 0.4);
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        transition: transform 0.1s ease, box-shadow 0.2s ease,
+          border-color 0.2s ease, background 0.3s ease; /* Enhanced: added background transition */
+        box-shadow: 0 6px 24px rgba(255, 149, 0, 0.16);
+      }
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 30px rgba(255, 149, 0, 0.2);
+        border-color: rgba(255, 149, 0, 0.6);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 149, 0, 0.32),
+          rgba(255, 149, 0, 0.22)
+        ); /* Enhanced: brighter gradient on hover */
+      }
+      button:active {
+        transform: translateY(0);
+      }
+
+      /* Blockquote section */
+      .quote {
+        width: min(760px, 94vw);
+      }
+      .quote blockquote {
+        margin: 0;
+        padding: 16px 18px 16px 18px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 149, 0, 0.06),
+          rgba(255, 204, 0, 0.05)
+        );
+        border: 1px solid rgba(255, 149, 0, 0.22);
+        border-left: 4px solid var(--accent);
+        border-radius: 12px;
+        line-height: 1.55;
+        color: #f9e9d9;
+        position: relative;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35),
+          inset 0 0 30px rgba(255, 149, 0, 0.1),
+          0 0 20px rgba(255, 149, 0, 0.15); /* Enhanced: added outer glow shadow */
+      }
+      .quote blockquote::before {
+        content: "“";
+        position: absolute;
+        top: -24px;
+        left: 12px;
+        font-size: 56px;
+        color: rgba(255, 149, 0, 0.25);
+        text-shadow: 0 0 12px rgba(255, 149, 0, 0.35);
+      }
+      .quote blockquote footer {
+        margin-top: 8px;
+        color: rgba(247, 234, 234, 0.75);
+        font-weight: 700;
+        letter-spacing: 0.4px;
+      }
+      .quote blockquote cite {
+        font-style: normal;
+        color: var(--accent);
+      }
+
+      /* River (animated, bottom) */
+      .river {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        height: clamp(160px, 28vh, 360px);
+        z-index: 1; /* under panel, above bg overlays */
+        pointer-events: none;
+        opacity: 0.95;
+        filter: drop-shadow(0 -6px 24px rgba(255, 149, 0, 0.15))
+          blur(2px); /* Enhanced: added slight blur for smoother integration */
+      }
+      .river svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      /* Animate flowing highlights inside the river */
+      @keyframes riverFlowA {
+        to {
+          transform: translateX(0);
+        }
+      }
+      @keyframes riverFlowB {
+        to {
+          transform: translateX(0);
+        }
+      }
+      .flowA {
+        transform: translateX(-50%);
+        animation: riverFlowA 14s linear infinite;
+      }
+      .flowB {
+        transform: translateX(-65%);
+        animation: riverFlowB 22s linear infinite;
+      }
+
+      /* Accessibility: respect reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .sweep {
+          animation: none !important;
+          background: rgba(255, 149, 0, 0.15);
+        }
+        .flowA,
+        .flowB {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hud">
+      <div class="panel">
+        <div class="radar" id="radar">
+          <div class="sweep" id="sweep"></div>
+          <div class="crosshair"></div>
+
+          <div class="count" id="count" >5</div>
+        </div>
+
+        <div class="controls">
+          <button id="restart">Restart Sweep</button>
+        </div>
+
+        <!-- Blockquote section below the radar -->
+        <section class="quote">
+          <blockquote>
+            <p id="quoteText">
+              When the sweep hits zero, unleash the beast. Precision. Patience.
+              Power.
+            </p>
+            <footer>
+              — <cite><h4 id="quoteDriver">Ops Console</h4></cite>
+            </footer>
+          </blockquote>
+        </section>
+      </div>
+
+      <!-- Glowing River at the bottom -->
+      <div class="river" aria-hidden="true">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <defs>
+            <!-- River shape for clipping -->
+            <clipPath id="river-clip">
+              <path
+                d="M0,120
+                     C180,90 360,150 540,120
+                     C720,90 900,150 1080,120
+                     C1260,95 1380,110 1440,100
+                     L1440,320 L0,320 Z"
+              />
+            </clipPath>
+
+            <!-- Base water gradient -->
+            <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffcc00" stop-opacity=".22" />
+              <stop offset="100%" stop-color="#ff9500" stop-opacity=".12" />
+            </linearGradient>
+
+            <!-- Moving glow band -->
+            <linearGradient id="glowBand" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ff9500" stop-opacity="0" />
+              <stop offset="50%" stop-color="#ff9500" stop-opacity=".45" />
+              <stop offset="100%" stop-color="#ff9500" stop-opacity="0" />
+            </linearGradient>
+
+            <!-- A subtle cyan band moving at a different speed -->
+            <linearGradient id="glowBand2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ffcc00" stop-opacity="0" />
+              <stop offset="50%" stop-color="#ffcc00" stop-opacity=".35" />
+              <stop offset="100%" stop-color="#ffcc00" stop-opacity="0" />
+            </linearGradient>
+
+            <!-- Very soft fade at the bottom for depth -->
+            <linearGradient id="fadeDown" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="white" stop-opacity="1" />
+              <stop offset="100%" stop-color="white" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+
+          <!-- Clip everything to the river shape -->
+          <g clip-path="url(#river-clip)">
+            <!-- Base water fill -->
+            <rect width="1440" height="320" fill="url(#water)"></rect>
+
+            <!-- Flowing highlights -->
+            <g opacity=".55">
+              <rect
+                class="flowA"
+                x="-1440"
+                y="40"
+                width="4320"
+                height="90"
+                fill="url(#glowBand)"
+              ></rect>
+            </g>
+            <g opacity=".40">
+              <rect
+                class="flowB"
+                x="-1440"
+                y="120"
+                width="4320"
+                height="80"
+                fill="url(#glowBand2)"
+              ></rect>
+            </g>
+
+            <!-- Subtle vertical fade for depth -->
+            <rect
+              width="1440"
+              height="320"
+              fill="url(#fadeDown)"
+              opacity=".25"
+            ></rect>
+          </g>
+
+          <!-- Highlight stroke along the wave crest -->
+          <path
+            d="M0,120
+                 C180,90 360,150 540,120
+                 C720,90 900,150 1080,120
+                 C1260,95 1380,110 1440,100"
+            fill="none"
+            stroke="#ff9500"
+            stroke-opacity=".18"
+            stroke-width="2"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <script>
+      const restartBtn = document.getElementById("restart");
+      const sweep = document.getElementById("sweep");
+      restartBtn?.addEventListener("click", () => {
+        sweep.style.animation = "none";
+        // Force reflow to restart animation
+        void sweep.offsetWidth;
+        sweep.style.animation = "";
+        sweep.style.animation = `spin var(--duration) linear infinite`;
+      });
+    </script>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
