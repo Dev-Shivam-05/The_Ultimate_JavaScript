@@ -114,7 +114,7 @@ const blockQuotes = [
 const quoteText = document.getElementById("quoteText");
 const quoteDriver = document.getElementById("quoteDriver");
 const quoteCountDown = document.getElementById("count");
-let chargeLevel = 5; // Renamed for theme
+let chargeLevel = 5;
 
 const getRandomQuote = () => {
   let randomIndex = Math.floor(Math.random() * blockQuotes.length);
@@ -137,3 +137,8 @@ const quoteTime = setInterval(() => {
   }
   quoteCountDown.innerHTML = chargeLevel;
 }, 1000);
+
+const restartButton = () => {
+  chargeLevel = 5;
+  quoteCountDown.innerHTML = chargeLevel;
+}
