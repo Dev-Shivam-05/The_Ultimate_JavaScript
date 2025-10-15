@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --light-bg: #f4f7f6;
+            --dark-text: #343a40;
+            --light-text: #ffffff;
+            --border-color: #dee2e6;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- Main Container --- */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--light-text);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .screen { padding: 40px; }
+        #management-screen { display: none; }
+
+        h1, h2 { color: var(--dark-text); margin-bottom: 25px; text-align: center; }
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.5rem; }
+
+        /* --- Form & Input Styling --- */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2);
+        }
+
+        /* --- Button Styling --- */
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--gradient);
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .btn-secondary { background: #6c757d; }
+        .btn-secondary:hover { background: #5a6268; }
+
+        /* --- Message Output --- */
+        #message-output {
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 25px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .message-success { background-color: #d4edda; color: #155724; }
+        .message-error { background-color: #f8d7da; color: #721c24; }
+
+        /* --- Management Dashboard Styling --- */
+        .product-display {
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .product-display h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.75rem;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .detail-item span {
+            display: block;
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        .detail-item .value {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        #display-price, #display-stock { color: var(--primary-color); }
+        #display-sku { font-family: monospace; font-size: 1.1rem; }
+
+        .management-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 600px) {
+            .management-actions { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- ==== SCREEN 1: PRODUCT CREATION ==== -->
+        <div id="creation-screen" class="screen">
+            <h1>Create a New Product</h1>
+            <form id="create-product-form">
+                <div class="form-group">
+                    <label for="name">Product Name</label>
+                    <input type="text" id="name" placeholder="e.g., Wireless Headphones" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" placeholder="e.g., Electronics" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price ($)</label>
+                    <input type="number" id="price" min="0" step="0.01" placeholder="e.g., 99.99" required>
+                </div>
+                <div class="form-group">
+                    <label for="stock">Initial Stock</label>
+                    <input type="number" id="stock" min="0" step="1" placeholder="e.g., 150" required>
+                </div>
+                <button type="submit" class="btn">Create Product</button>
+            </form>
+        </div>
+
+        <!-- ==== SCREEN 2: PRODUCT MANAGEMENT ==== -->
+        <div id="management-screen" class="screen">
+            <h2>Product Management</h2>
+            <div id="message-output"></div>
+
+            <div class="product-display">
+                <h3 id="display-name">Product Name</h3>
+                <div class="details-grid">
+                    <div class="detail-item"><span>SKU</span><p id="display-sku" class="value">CAT-XYZ123</p></div>
+                    <div class="detail-item"><span>Category</span><p id="display-category" class="value">Category</p></div>
+                    <div class="detail-item"><span>Price</span><p id="display-price" class="value">$0.00</p></div>
+                    <div class="detail-item"><span>Stock</span><p id="display-stock" class="value">0</p></div>
+                </div>
+            </div>
+
+            <div class="management-actions">
+                <div class="action-card">
+                    <h3>Update Stock</h3>
+                    <form id="stock-form">
+                        <div class="form-group">
+                            <label for="stock-quantity">Quantity (+/-)</label>
+                            <input type="number" id="stock-quantity" placeholder="e.g., 25 or -10" required>
+                        </div>
+                        <button type="submit" class="btn">Update Stock</button>
+                    </form>
+                </div>
+                <div class="action-card">
+                    <h3>Apply Discount</h3>
+                    <form id="discount-form">
+                        <div class="form-group">
+                            <label for="discount-percent">Discount (%)</label>
+                            <input type="number" id="discount-percent" min="0" max="100" placeholder="e.g., 15" required>
+                        </div>
+                        <button type="submit" class="btn">Apply Discount</button>
+                    </form>
+                </div>
+            </div>
+             <button id="reset-btn" class="btn btn-secondary">Create Another Product</button>
+        </div>
+    </div>
+
+    <script>
+        class Product {
+            constructor(name, category, price, stock) {
+                if (typeof price !== 'number' || price < 0) {
+                    throw new Error("Price must be a non-negative number.");
+                }
+                if (!Number.isInteger(stock) || stock < 0) {
+                    throw new Error("Stock must be a non-negative integer.");
+                }
+
+                this.name = name;
+                this.category = category;
+                this.price = price;
+                this.initial_price = price;
+                this.stock = stock;
+                this.sku = this._generateSku();
+            }
+
+            _generateSku() {
+                const catCode = this.category.slice(0, 3).toUpperCase();
+                const randomCode = Math.random().toString(36).substring(2, 10).toUpperCase();
+                return `${catCode}-${randomCode}`;
+            }
+
+            updateStock(quantity) {
+                if (!Number.isInteger(quantity)) {
+                    return { success: false, message: `Invalid input. Quantity must be an integer.` };
+                }
+                if (this.stock + quantity < 0) {
+                    return { success: false, message: `Operation failed. Only ${this.stock} units available.` };
+                }
+                this.stock += quantity;
+                const action = quantity > 0 ? 'added' : 'removed';
+                const amount = Math.abs(quantity);
+                return { success: true, message: `${amount} units ${action}. New stock is ${this.stock}.` };
+            }
+
+            applyDiscount(discountPercent) {
+                if (typeof discountPercent !== 'number' || discountPercent < 0 || discountPercent > 100) {
+                    return { success: false, message: "Discount must be between 0 and 100." };
+                }
+                const discountFactor = discountPercent / 100;
+                this.price = this.initial_price * (1 - discountFactor);
+                return { success: true, message: `Discount of ${discountPercent}% applied successfully.` };
+            }
+        }
+
+        // --- UI LOGIC ---
+
+        // DOM Element References
+        const creationScreen = document.getElementById('creation-screen');
+        const managementScreen = document.getElementById('management-screen');
+        const messageOutput = document.getElementById('message-output');
+
+        const createForm = document.getElementById('create-product-form');
+        const stockForm = document.getElementById('stock-form');
+        const discountForm = document.getElementById('discount-form');
+        const resetBtn = document.getElementById('reset-btn');
+        
+        // Product Display Elements
+        const displayName = document.getElementById('display-name');
+        const displaySku = document.getElementById('display-sku');
+        const displayCategory = document.getElementById('display-category');
+        const displayPrice = document.getElementById('display-price');
+        const displayStock = document.getElementById('display-stock');
+
+        // Application State
+        let currentProduct = null;
+
+        // --- Helper Functions ---
+        function showMessage(message, type) {
+            messageOutput.textContent = message;
+            messageOutput.className = type === 'success' ? 'message-success' : 'message-error';
+            messageOutput.style.display = 'block';
+            setTimeout(() => messageOutput.style.opacity = 1, 10); // Fade in
+        }
+        
+        function hideMessage() {
+            messageOutput.style.opacity = 0;
+            setTimeout(() => messageOutput.style.display = 'none', 500);
+        }
+
+        function updateProductDisplay() {
+            if (currentProduct) {
+                displayName.textContent = currentProduct.name;
+                displaySku.textContent = currentProduct.sku;
+                displayCategory.textContent = currentProduct.category;
+                displayPrice.textContent = `$${currentProduct.price.toFixed(2)}`;
+                displayStock.textContent = currentProduct.stock;
+            }
+        }
+
+        // --- Event Listeners ---
+
+        // 1. Create a new product
+        createForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const category = document.getElementById('category').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const stock = parseInt(document.getElementById('stock').value);
+
+            try {
+                currentProduct = new Product(name, category, price, stock);
+                updateProductDisplay();
+
+                // Switch screens
+                creationScreen.style.display = 'none';
+                managementScreen.style.display = 'block';
+                showMessage('Product created successfully!', 'success');
+                createForm.reset();
+            } catch (error) {
+                // This would be better handled by a message on the creation screen, but alert works for simplicity
+                alert(`Error: ${error.message}`);
+            }
+        });
+
+        // 2. Update stock
+        stockForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const quantityInput = document.getElementById('stock-quantity');
+            const quantity = parseInt(quantityInput.value);
+
+            const result = currentProduct.updateStock(quantity);
+            showMessage(result.message, result.success ? 'success' : 'error');
+
+            if (result.success) {
+                updateProductDisplay();
+                quantityInput.value = ''; // Clear input on success
+            }
+        });
+
+        // 3. Apply discount
+        discountForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const percentInput = document.getElementById('discount-percent');
+            const percent = parseFloat(percentInput.value);
+
+            const result = currentProduct.applyDiscount(percent);
+            showMessage(result.message, result.success ? 'success' : 'error');
+
+            if (result.success) {
+                updateProductDisplay();
+                percentInput.value = ''; // Clear input on success
+            }
+        });
+
+        // 4. Reset to create a new product
+        resetBtn.addEventListener('click', () => {
+            currentProduct = null;
+            managementScreen.style.display = 'none';
+            creationScreen.style.display = 'block';
+            hideMessage();
+        });
+
+    </script>
+</body>
+</html>
