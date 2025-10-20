@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <!-- 🔥 PURE CSS ANIMATIONS (GitHub-Safe) -->
+    <style>
+      /* Header Glow Pulse */
+      @keyframes headerGlow {
+        0%,
+        100% {
+          text-shadow: 0 0 8px #8a2be2;
+        }
+        50% {
+          text-shadow: 0 0 20px #00ffff, 0 0 30px #8a2be2;
+        }
+      }
+
+      /* Card Box-Shadow Pulse */
+      @keyframes cardGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 12px #8a2be2;
+        }
+        50% {
+          box-shadow: 0 0 24px #00ffff, 0 0 36px #8a2be2;
+        }
+      }
+
+      /* Text Pulse */
+      @keyframes textPulse {
+        0%,
+        100% {
+          text-shadow: 0 0 5px currentColor;
+        }
+        50% {
+          text-shadow: 0 0 12px currentColor;
+        }
+      }
+
+      /* Fire Emoji Pulse */
+      @keyframes firePulse {
+        0%,
+        100% {
+          text-shadow: 0 0 5px #ff4500;
+        }
+        50% {
+          text-shadow: 0 0 15px #ffd700, 0 0 25px #ff4500;
+        }
+      }
+
+      /* Flowing Border for WakaTime */
+      @keyframes borderFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ULTIMATE ANIMATED STATS DASHBOARD: Live, Multi-Column with Enhanced APIs -->
+    <div align="center">
+      <!-- 🔥 Animated Header -->
+      <h2
+        align="center"
+        style="
+          font-family: 'Orbitron', sans-serif;
+          color: #8a2be2;
+          margin: 24px 0;
+          text-shadow: 0 0 8px #8a2be2;
+          animation: headerGlow 1.8s ease-in-out infinite;
+        "
+      >
+        📊 BEAST MODE STATS DASHBOARD
+      </h2>
+
+      <table
+        style="
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+          font-family: 'Fira Code', monospace;
+        "
+      >
+        <tr>
+          <!-- 🔹 Profile Views -->
+          <td
+            align="center"
+            style="
+              padding: 16px;
+              background: linear-gradient(45deg, #8a2be2, #ba55d3);
+              border-radius: 18px;
+              margin: 8px;
+              box-shadow: 0 0 12px #8a2be2;
+              animation: cardGlow 2s ease-in-out infinite;
+            "
+          >
+            <img
+              src="https://komarev.com/ghpvc/?username=Dev-Shivam-05&color=8A2BE2&style=for-the-badge&label=PROFILE+VIEWS"
+              alt="Profile Views"
+            />
+            <br />
+            <strong
+              style="
+                color: #00ffff;
+                font-family: 'Fira Code';
+                font-size: 15px;
+                text-shadow: 0 0 5px #00ffff;
+                animation: textPulse 1.5s ease-in-out infinite;
+              "
+            >
+              🚀 LIVE COUNTER
+            </strong>
+          </td>
+
+          <!-- 🔹 Growth Metrics -->
+          <td
+            align="center"
+            style="
+              padding: 16px;
+              background: linear-gradient(45deg, #ff1493, #ff69b4);
+              border-radius: 18px;
+              margin: 8px;
+              box-shadow: 0 0 12px #ff1493;
+              animation: cardGlow 2s ease-in-out 0.3s infinite;
+            "
+          >
+            <img
+              src="https://img.shields.io/github/followers/Dev-Shivam-05?style=for-the-badge&color=FF1493&label=FOLLOWERS&logo=github"
+              alt="Followers"
+            />
+            <img
+              src="https://img.shields.io/github/stars/Dev-Shivam-05?style=for-the-badge&color=FFD700&label=STARS&logo=star"
+              alt="Stars"
+            />
+            <br />
+            <strong
+              style="
+                color: #ffd700;
+                font-family: 'Fira Code';
+                font-size: 15px;
+                text-shadow: 0 0 5px #ffd700;
+                animation: textPulse 1.5s ease-in-out 0.3s infinite;
+              "
+            >
+              📈 GROWTH METRICS
+            </strong>
+          </td>
+
+          <!-- 🔹 Hire Me -->
+          <td
+            align="center"
+            style="
+              padding: 16px;
+              background: linear-gradient(45deg, #00ff7f, #32cd32);
+              border-radius: 18px;
+              margin: 8px;
+              box-shadow: 0 0 12px #00ff7f;
+              animation: cardGlow 2s ease-in-out 0.6s infinite;
+            "
+          >
+            <img
+              src="https://img.shields.io/badge/OPEN%20TO%20WORK-✅%20YES-00FF7F?style=for-the-badge&logo=briefcase&logoColor=black"
+              alt="Open to Work"
+            />
+            <br />
+            <a href="mailto:shivambhadoriya1605@gmail.com">
+              <img
+                src="https://img.shields.io/badge/HIRE%20ME-🚀%20CLICK%20HERE-FF4500?style=for-the-badge&logo=rocket&logoColor=white"
+                alt="Hire Me"
+              />
+            </a>
+            <br />
+            <strong
+              style="
+                color: #000;
+                font-family: 'Fira Code';
+                font-size: 15px;
+                text-shadow: 0 0 5px #00ff7f;
+                animation: textPulse 1.5s ease-in-out 0.6s infinite;
+              "
+            >
+              💼 PRO STATUS
+            </strong>
+          </td>
+
+          <!-- 🔹 Contribution Streak -->
+          <td
+            align="center"
+            style="
+              padding: 16px;
+              background: linear-gradient(45deg, #8a2be2, #4b0082);
+              border-radius: 18px;
+              margin: 8px;
+              box-shadow: 0 0 12px #8a2be2;
+              animation: cardGlow 2s ease-in-out 0.9s infinite;
+            "
+          >
+            <!-- 🔥 Animated Fire Emoji -->
+            <span
+              style="
+                font-size: 24px;
+                display: block;
+                margin-bottom: 8px;
+                animation: firePulse 1.2s ease-in-out infinite;
+              "
+              >🔥</span
+            >
+            <img
+              src="https://github-readme-streak-stats.herokuapp.com/?user=Dev-Shivam-05&theme=dark&hide_border=true&stroke=0000&background=0d1117&ring=00FFFF&fire=FF4500&currStreakLabel=8A2BE2&sideLabels=00FF7F&dates=8A2BE2"
+              width="220"
+              alt="Streak Stats"
+            />
+            <br />
+            <strong
+              style="
+                color: #ba55d3;
+                font-family: 'Fira Code';
+                font-size: 15px;
+                text-shadow: 0 0 5px #ba55d3;
+                animation: textPulse 1.5s ease-in-out 0.9s infinite;
+              "
+            >
+              🔥 STREAK KING
+            </strong>
+          </td>
+        </tr>
+
+        <!-- 🔷 WakaTime Stats -->
+        <tr>
+          <td
+            align="center"
+            colspan="4"
+            style="
+              padding: 20px;
+              position: relative;
+              border-radius: 20px;
+              overflow: hidden;
+            "
+          >
+            <!-- Animated Gradient Border -->
+            <div
+              style="
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(
+                  45deg,
+                  #8a2be2,
+                  #00ffff,
+                  #ff1493,
+                  #00ff7f
+                );
+                background-size: 400% 400%;
+                border-radius: 22px;
+                z-index: 0;
+                opacity: 0.8;
+                animation: borderFlow 8s ease infinite;
+              "
+            ></div>
+            <!-- Real WakaTime SVG -->
+            <img
+              src="https://wakatime.com/share/@__https_shivu/1e3ecda4-24d6-47c5-bc37-a11c044df727.svg"
+              alt="WakaTime Stats"
+              style="
+                border-radius: 16px;
+                width: 96%;
+                position: relative;
+                z-index: 1;
+                filter: drop-shadow(0 0 8px #00ffff);
+              "
+            />
+            <br />
+            <strong
+              style="
+                color: #00ffff;
+                font-size: 20px;
+                font-family: 'Fira Code';
+                text-shadow: 0 0 6px #00ffff;
+                position: relative;
+                z-index: 1;
+                animation: textPulse 1.8s ease-in-out infinite;
+              "
+            >
+              ⏱️ CODING ACTIVITY (LAST 7 DAYS)
+            </strong>
+            <p
+              style="
+                color: #ba55d3;
+                font-style: italic;
+                font-family: 'Fira Code';
+                font-size: 13px;
+                position: relative;
+                z-index: 1;
+              "
+            >
+              🔐 Auto-updates via WakaTime + GitHub Secrets
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- ⚡ GitHub Performance Dashboard -->
+    <h2
+      align="center"
+      style="
+        font-family: 'Orbitron', sans-serif;
+        background: linear-gradient(90deg, #8a2be2, #ba55d3, #00ffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 10px #00ffff, 0 0 20px rgba(138, 43, 226, 0.6);
+        margin: 30px 0;
+        font-size: 28px;
+      "
+    >
+      🔮 VIOLET CORE TERMINAL v2.0
+    </h2>
+
+    <div align="center">
+      <!-- PROFILE CARD -->
+      <div
+        style="
+          background: linear-gradient(135deg, #4b0082, #8a2be2);
+          padding: 4px;
+          border-radius: 16px;
+          box-shadow: 0 0 20px #8a2be2, 0 0 30px rgba(138, 43, 226, 0.4),
+            inset 0 0 12px rgba(0, 255, 255, 0.3);
+          margin-bottom: 25px;
+        "
+      >
+        <img
+          src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Dev-Shivam-05&theme=dark"
+          alt="Profile Details"
+          width="92%"
+          style="
+            border-radius: 12px;
+            border: 2px solid #ba55d3;
+            box-shadow: 0 0 12px rgba(186, 85, 211, 0.6);
+          "
+        />
+      </div>
+    </div>
+
+    <div align="center">
+      <!-- ROW OF 3 CARDS -->
+      <!-- LANGUAGES CARD -->
+      <div
+        style="
+          display: inline-block;
+          width: 32%;
+          min-width: 300px;
+          margin: 0 0.5%;
+          background: linear-gradient(135deg, #4b0082, #8a2be2, #ba55d3);
+          padding: 4px;
+          border-radius: 16px;
+          box-shadow: 0 0 20px #ba55d3, inset 0 0 10px rgba(186, 85, 211, 0.5);
+        "
+      >
+        <div style="text-align: center; margin-bottom: 6px">
+          <span style="font-size: 26px; text-shadow: 0 0 8px #00ffff">🌐</span>
+          <strong
+            style="
+              color: #00ffff;
+              font-family: 'Fira Code';
+              font-size: 16px;
+              text-shadow: 0 0 6px #00ffff;
+            "
+            >REPOS PER LANGUAGE</strong
+          >
+        </div>
+        <img
+          src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Dev-Shivam-05&theme=dark"
+          width="100%"
+          style="border-radius: 12px; border: 2px solid #00ffff"
+        />
+      </div>
+
+      <!-- COMMIT LANGUAGES CARD -->
+      <div
+        style="
+          display: inline-block;
+          width: 32%;
+          min-width: 300px;
+          margin: 0 0.5%;
+          background: linear-gradient(135deg, #8a2be2, #ba55d3, #8a2be2);
+          padding: 4px;
+          border-radius: 16px;
+          box-shadow: 0 0 20px #00ffff, inset 0 0 10px rgba(0, 255, 255, 0.5);
+        "
+      >
+        <div style="text-align: center; margin-bottom: 6px">
+          <span style="font-size: 26px; text-shadow: 0 0 8px #00ffff">🌀</span>
+          <strong
+            style="
+              color: #00ffff;
+              font-family: 'Fira Code';
+              font-size: 16px;
+              text-shadow: 0 0 6px #00ffff;
+            "
+            >TOP COMMIT LANGS</strong
+          >
+        </div>
+        <img
+          src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Dev-Shivam-05&theme=dark"
+          width="100%"
+          style="border-radius: 12px; border: 2px solid #00ffff"
+        />
+      </div>
+
+      <!-- STATS CARD -->
+      <div
+        style="
+          display: inline-block;
+          width: 32%;
+          min-width: 300px;
+          margin: 0 0.5%;
+          background: linear-gradient(135deg, #ba55d3, #8a2be2, #4b0082);
+          padding: 4px;
+          border-radius: 16px;
+          box-shadow: 0 0 20px #8a2be2, inset 0 0 10px rgba(138, 43, 226, 0.5);
+        "
+      >
+        <div style="text-align: center; margin-bottom: 6px">
+          <span style="font-size: 26px; text-shadow: 0 0 8px #00ffff">⚡</span>
+          <strong
+            style="
+              color: #00ffff;
+              font-family: 'Fira Code';
+              font-size: 16px;
+              text-shadow: 0 0 6px #00ffff;
+            "
+            >TOTAL STATS</strong
+          >
+        </div>
+        <img
+          src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Dev-Shivam-05&theme=dark"
+          width="100%"
+          style="border-radius: 12px; border: 2px solid #00ffff"
+        />
+      </div>
+    </div>
+
+    <div align="center" style="margin-top: 20px; font-family: 'Fira Code'">
+      <p
+        style="
+          color: #ba55d3;
+          font-size: 14px;
+          text-shadow: 0 0 5px rgba(186, 85, 211, 0.8);
+        "
+      >
+        🌀 <i>Powered by Violet Core • Data syncs live via GitHub API</i>
+      </p>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 30px;
+            max-width: 1200px;
+        }
+        .employee-form {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .salary-slip {
+            display: none;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            margin-top: 30px;
+        }
+        .employee-list {
+            margin-top: 30px;
+        }
+        .print-btn {
+            float: right;
+            margin-bottom: 20px;
+        }
+        .company-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px double #333;
+        }
+        .salary-details {
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .action-btns {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Employee Management System</h1>
+        
+        <!-- Employee Input Form -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="employee-form">
+                    <h3>Add New Employee</h3>
+                    <form id="employeeForm" onsubmit="createEmployee(); return false">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="employeeName" class="form-label">Employee Name</label>
+                                <input type="text" class="form-control" id="employeeName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="department" class="form-label">Department</label>
+                                <input type="text" class="form-control" id="department" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="role" class="form-label">Role</label>
+                                <input type="text" class="form-control" id="role" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="basicSalary" class="form-label">Basic Salary</label>
+                                <input type="number" class="form-control" id="basicSalary" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Employee</button>
+                        <button type="button" id="resetBtn" onclick="resetFunc()" class="btn btn-secondary">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee List -->
+        <div class="row employee-list">
+            <div class="col-md-12">
+                <h3>Employee List</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Role</th>
+                                <th>Basic Salary</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeTableBody">
+                            <!-- Employee data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Salary Slip -->
+        <div class="row">
+            <div class="col-md-12">
+                <div id="salarySlip" class="salary-slip">
+                    <button id="printBtn" class="btn btn-success print-btn">Print Salary Slip</button>
+                    <div class="company-header">
+                        <h2>COMPANY NAME</h2>
+                        <p>123 Business Street, City, Country</p>
+                        <h4>SALARY SLIP</h4>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Employee ID:</strong> <span id="slipEmployeeId"></span></p>
+                            <p><strong>Employee Name:</strong> <span id="slipEmployeeName"></span></p>
+                            <p><strong>Department:</strong> <span id="slipDepartment"></span></p>
+                            <p><strong>Designation:</strong> <span id="slipRole"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Month:</strong> <span id="slipMonth"></span></p>
+                            <p><strong>Year:</strong> <span id="slipYear"></span></p>
+                            <p><strong>Date Generated:</strong> <span id="slipDate"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="salary-details">
+                        <h5>Earnings</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Amount (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Basic Salary</td>
+                                    <td id="slipBasicSalary"></td>
+                                </tr>
+                                <tr>
+                                    <td>House Rent Allowance (HRA)</td>
+                                    <td id="slipHRA"></td>
+                                </tr>
+                                <tr>
+                                    <td>Dearness Allowance (DA)</td>
+                                    <td id="slipDA"></td>
+                                </tr>
+                                <tr>
+                                    <td>Medical Allowance</td>
+                                    <td id="slipMedical"></td>
+                                </tr>
+                                <tr>
+                                    <td>Conveyance Allowance</td>
+                                    <td id="slipConveyance"></td>
+                                </tr>
+                                <tr class="table-success">
+                                    <td><strong>Total Earnings</strong></td>
+                                    <td id="slipTotalEarnings"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h5 class="mt-4">Deductions</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Amount (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Provident Fund (PF)</td>
+                                    <td id="slipPF"></td>
+                                </tr>
+                                <tr>
+                                    <td>Professional Tax</td>
+                                    <td id="slipProfessionalTax"></td>
+                                </tr>
+                                <tr class="table-danger">
+                                    <td><strong>Total Deductions</strong></td>
+                                    <td id="slipTotalDeductions"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="alert alert-info">
+                                    <h5>Net Salary Details</h5>
+                                    <p><strong>Gross Salary:</strong> ₹<span id="slipGrossSalary"></span></p>
+                                    <p><strong>Total Deductions:</strong> ₹<span id="slipDeductions"></span></p>
+                                    <h4>Net Payable Salary: ₹<span id="slipNetSalary"></span></h4>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="alert alert-warning">
+                                    <h5>Payment Information</h5>
+                                    <p><strong>Payment Mode:</strong> Bank Transfer</p>
+                                    <p><strong>Account Last 4 Digits:</strong> ****</p>
+                                    <p><strong>Payment Date:</strong> <span id="slipPaymentDate"></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <p><em>This is a computer-generated slip and does not require a signature.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./js/script.js" type="text/javascript"></script>
+</body>
+</html>
