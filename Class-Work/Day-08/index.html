@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | YourApp</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --primary-dark: #5649c0;
+        --secondary: #a29bfe;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --success: #00b894;
+        --danger: #d63031;
+        --border-radius: 12px;
+        --box-shadow: 0 10px 30px -10px rgba(108, 92, 231, 0.3);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .login-container {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        width: 100%;
+        max-width: 450px;
+        padding: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-header h1 {
+        color: var(--dark);
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .login-header p {
+        color: #6c757d;
+        font-size: 15px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--dark);
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid #e9ecef;
+        border-radius: var(--border-radius);
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        background-color: white;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 40px;
+        cursor: pointer;
+        color: #6c757d;
+        font-size: 14px;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: var(--primary);
+        color: white;
+        margin-bottom: 20px;
+      }
+
+      .btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .forgot-password {
+        text-align: right;
+        margin-bottom: 20px;
+      }
+
+      .forgot-password a {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s ease;
+      }
+
+      .forgot-password a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+        color: #adb5bd;
+        font-size: 14px;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .divider::before {
+        margin-right: 10px;
+      }
+
+      .divider::after {
+        margin-left: 10px;
+      }
+
+      .social-login {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .social-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .google-btn {
+        background: #db4437;
+      }
+
+      .facebook-btn {
+        background: #4267b2;
+      }
+
+      .twitter-btn {
+        background: #1da1f2;
+      }
+
+      .social-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .signup-link {
+        text-align: center;
+        font-size: 14px;
+        color: #6c757d;
+      }
+
+      .signup-link a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .signup-link a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.1;
+      }
+
+      .shape-1 {
+        width: 200px;
+        height: 200px;
+        background: var(--primary);
+        top: -50px;
+        right: -50px;
+      }
+
+      .shape-2 {
+        width: 150px;
+        height: 150px;
+        background: var(--secondary);
+        bottom: -30px;
+        left: -30px;
+      }
+
+      @media (max-width: 480px) {
+        .login-container {
+          padding: 30px 20px;
+        }
+
+        .login-header h1 {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+      </div>
+
+      <div class="login-header">
+        <h1>Welcome Back</h1>
+        <p>Please enter your credentials to login</p>
+      </div>
+
+      <form method="post" id="loginFrom">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            placeholder="your@email.com"
+          />
+        </div>
+        <span class="email-error text-danger d-none"
+          >Please Enter Valid Email Address</span
+        >
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="••••••••"
+          />
+        </div>
+        <span class="password-error text-danger d-none"
+          >Please Enter A Strong Password</span
+        >
+
+        <div class="forgot-password">
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+
+        <div class="divider">or continue with</div>
+
+        <div class="social-login">
+          <div class="social-btn google-btn">
+            <i class="fab fa-google"></i>
+          </div>
+          <div class="social-btn facebook-btn">
+            <i class="fab fa-facebook-f"></i>
+          </div>
+          <div class="social-btn twitter-btn">
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </form>
+
+      <div class="signup-link">
+        Don't have an account? <a href="#">Sign up</a>
+      </div>
+    </div>
+
+    <!-- Font Awesome for icons (you can also use SVG icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/script.js" type="text/javascript"></script>
+  </body>
+</html>
