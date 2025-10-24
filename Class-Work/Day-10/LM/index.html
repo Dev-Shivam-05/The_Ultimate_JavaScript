@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radar Countdown Clock</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #000;
+        font-family: "Courier New", monospace;
+      }
+
+      .clock-container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 3px solid #00ff00; /* Green border for radar circle */
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 20, 0, 0.8) 0%,
+          rgba(0, 0, 0, 1) 100%
+        );
+      }
+
+      .radar-line {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2px;
+        height: 50%;
+        background: linear-gradient(
+          to bottom,
+          transparent 0%,
+          #00ff00 50%,
+          transparent 100%
+        );
+        transform-origin: bottom center;
+        transform: translate(-50%, -100%) rotate(0deg); /* Starts pointing straight up (top) */
+        animation: rotate 10s linear infinite;
+        box-shadow: 0 0 10px #00ff00; /* Glow effect for radar */
+      }
+
+      @keyframes rotate {
+        from {
+          transform: translate(-50%, -100%) rotate(0deg); /* Start at top */
+        }
+        to {
+          transform: translate(-50%, -100%) rotate(360deg); /* End at top after full circle */
+        }
+      }
+
+      .countdown {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+        color: #00ff00;
+        text-shadow: 0 0 10px #00ff00;
+        z-index: 10;
+      }
+
+      /* Optional: Faint grid lines for radar feel */
+      .clock-container::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(0, 255, 0, 0.1);
+        transform: translateY(-50%);
+      }
+
+      .clock-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        background: rgba(0, 255, 0, 0.1);
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="clock-container">
+      <div class="radar-line" id="radarLine"></div>
+      <div class="countdown" id="countdown">10</div>
+    </div>
+
+    <script>
+      let timeLeft = 10;
+      const countdownElement = document.getElementById("countdown");
+      const radarLine = document.getElementById("radarLine");
+
+      function updateCountdown() {
+        countdownElement.textContent = timeLeft;
+
+        if (timeLeft > 0) {
+          timeLeft--;
+          setTimeout(updateCountdown, 1000); // Update every second
+        } else {
+          // Reset to 10 when reaching 0
+          timeLeft = 10;
+          setTimeout(updateCountdown, 0); // Immediate restart
+        }
+      }
+
+      // Optional: Listen for animation completion to force precise sync (triggers on full rotation back to top)
+      radarLine.addEventListener("animationiteration", function () {
+        if (timeLeft !== 10) {
+          // Only reset if not already starting a new cycle
+          timeLeft = 10;
+          countdownElement.textContent = timeLeft;
+        }
+      });
+
+      // Start the countdown (syncs with CSS animation)
+      updateCountdown();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+/* F1-Themed Font: Rajdhani */
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap");
+
+/* CSS Variables for easy theming */
+:root {
+  --primary-glow: #00f6ff;
+  --bg-color: #0c0a18;
+  --container-bg: rgba(20, 25, 60, 0.5);
+  --border-color: rgba(0, 246, 255, 0.3);
+}
+
+body {
+  font-family: "Rajdhani", sans-serif;
+  background-color: var(--bg-color);
+  /* Animated Nebula Background */
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png"),
+    linear-gradient(45deg, #101025 0%, #0c0a18 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: space-pan 60s linear infinite;
+}
+
+@keyframes space-pan {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 200% 200%;
+  }
+}
+
+/* Main container with a unique, futuristic shape */
+.quantum-core {
+  background: var(--container-bg);
+  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  clip-path: polygon(
+    0 30px,
+    30px 0,
+    calc(100% - 30px) 0,
+    100% 30px,
+    100% calc(100% - 30px),
+    calc(100% - 30px) 100%,
+    30px 100%,
+    0 calc(100% - 30px)
+  );
+  box-shadow: 0 0 40px rgba(0, 246, 255, 0.2),
+    inset 0 0 15px rgba(0, 246, 255, 0.1);
+  text-align: center;
+  color: #fff;
+  animation: core-hum 10s ease-in-out infinite;
+}
+
+@keyframes core-hum {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.charging-chamber h1 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--primary-glow);
+  text-shadow: 0 0 10px var(--primary-glow);
+  margin-bottom: 1rem;
+}
+
+#quoteCountDown {
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+  animation: quantum-pulse 2s ease-in-out infinite;
+}
+
+@keyframes quantum-pulse {
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 25px var(--primary-glow);
+  }
+}
+
+/* THE KEY UX ELEMENT: VISUAL CONNECTOR */
+.energy-conduit {
+  height: 50px;
+  width: 100%;
+  position: relative;
+  margin: 0.5rem 0;
+}
+.energy-conduit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(transparent, var(--primary-glow), transparent);
+  animation: energy-flow 1s linear infinite;
+}
+
+@keyframes energy-flow {
+  from {
+    transform: translateX(-50%) translateY(-100%);
+  }
+  to {
+    transform: translateX(-50%) translateY(100%);
+  }
+}
+
+/* The Data Crystal (Quote Block) */
+.data-crystal {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.data-crystal h3 {
+  color: var(--primary-glow);
+  text-align: left;
+  font-size: 1.3rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.data-crystal hr {
+  border-color: var(--border-color);
+  opacity: 0.5;
+}
+
+.data-crystal blockquote p {
+  margin: 0;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.25rem;
+  text-align: left;
+}
+
+/* THE HIGH-IMPACT FEEDBACK ANIMATION CLASS */
+.crystal-flash {
+  animation: crystal-flash-anim 0.7s ease-out;
+}
+
+@keyframes crystal-flash-anim {
+  0% {
+    transform: scale(1);
+    border-color: var(--border-color);
+    box-shadow: 0 0 10px rgba(0, 246, 255, 0.1);
+  }
+  50% {
+    transform: scale(1.03);
+    border-color: #fff;
+    box-shadow: 0 0 60px var(--primary-glow);
+  }
+  100% {
+    transform: scale(1);
+    border-color: var(--border-color);
+    box-shadow: 0 0 10px rgba(0, 246, 255, 0.1);
+  }
+}
