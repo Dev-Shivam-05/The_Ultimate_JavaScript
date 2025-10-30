@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elegant Bank Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #3a7bd5;
+        --primary-dark: #2a5dab;
+        --secondary: #00d2ff;
+        --success: #4caf50;
+        --error: #f44336;
+        --warning: #ff9800;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --gray: #6c757d;
+        --light-gray: #e9ecef;
+        --transition: all 0.3s ease;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+        --border-radius: 12px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1000px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: var(--transition);
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 30px 40px;
+        text-align: center;
+        position: relative;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        font-weight: 300;
+      }
+
+      .bank-logo {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 2rem;
+        background: rgba(255, 255, 255, 0.2);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .content {
+        padding: 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .content {
+          grid-template-columns: 1fr;
+          padding: 30px 20px;
+        }
+      }
+
+      .account-setup {
+        background: var(--light);
+        padding: 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+      }
+
+      .account-setup:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        color: var(--dark);
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--light-gray);
+        display: flex;
+        align-items: center;
+      }
+
+      .section-title i {
+        margin-right: 10px;
+        color: var(--primary);
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 0.95rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid var(--light-gray);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: var(--transition);
+        background: white;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+      }
+
+      .btn {
+        padding: 14px 28px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
+
+      .btn i {
+        margin-right: 8px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        width: 100%;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .btn-primary:active {
+        transform: translateY(0);
+      }
+
+      .actions-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .action-btn {
+        padding: 16px 20px;
+        border: 2px solid var(--light-gray);
+        border-radius: var(--border-radius);
+        background: white;
+        color: var(--dark);
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      .action-btn i {
+        margin-right: 15px;
+        font-size: 1.2rem;
+        width: 24px;
+        text-align: center;
+      }
+
+      .action-btn:hover {
+        border-color: var(--primary);
+        background: rgba(58, 123, 213, 0.05);
+        transform: translateX(5px);
+      }
+
+      .action-btn.withdraw {
+        color: var(--error);
+      }
+      .action-btn.withdraw:hover {
+        background: rgba(244, 67, 54, 0.05);
+        border-color: var(--error);
+      }
+      .action-btn.withdraw i {
+        color: var(--error);
+      }
+
+      .action-btn.deposit {
+        color: var(--success);
+      }
+      .action-btn.deposit:hover {
+        background: rgba(76, 175, 80, 0.05);
+        border-color: var(--success);
+      }
+      .action-btn.deposit i {
+        color: var(--success);
+      }
+
+      .action-btn.history {
+        color: var(--secondary);
+      }
+      .action-btn.history:hover {
+        background: rgba(0, 210, 255, 0.05);
+        border-color: var(--secondary);
+      }
+      .action-btn.history i {
+        color: var(--secondary);
+      }
+
+      .action-btn.balance {
+        color: var(--primary);
+      }
+      .action-btn.balance:hover {
+        background: rgba(58, 123, 213, 0.05);
+        border-color: var(--primary);
+      }
+      .action-btn.balance i {
+        color: var(--primary);
+      }
+
+      .output-panel {
+        margin-top: 30px;
+        padding: 25px;
+        background: var(--light);
+        border-radius: var(--border-radius);
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 2px dashed var(--light-gray);
+        transition: var(--transition);
+      }
+
+      .output-panel.active {
+        border-style: solid;
+      }
+
+      .output-message {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 15px;
+        min-height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .output-success {
+        color: var(--success);
+        animation: fadeInUp 0.5s ease;
+        font-weight: 600;
+      }
+
+      .output-error {
+        color: var(--error);
+        animation: fadeInUp 0.5s ease;
+        font-weight: 600;
+      }
+
+      .output-info {
+        color: var(--primary);
+        animation: fadeInUp 0.5s ease;
+        font-weight: 600;
+      }
+
+      .balance-display {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 15px 0;
+      }
+
+      .account-name {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 5px;
+      }
+
+      .history-container {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      .transaction {
+        padding: 15px;
+        border-bottom: 1px solid var(--light-gray);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .transaction:last-child {
+        border-bottom: none;
+      }
+
+      .transaction-type {
+        font-weight: 600;
+      }
+
+      .deposit-type {
+        color: var(--success);
+      }
+      .withdraw-type {
+        color: var(--error);
+      }
+
+      .transaction-amount {
+        font-weight: 700;
+      }
+
+      .transaction-date {
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      .empty-history {
+        padding: 30px;
+        color: var(--gray);
+        font-style: italic;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .pulse {
+        animation: pulse 1s ease-in-out;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .content {
+          padding: 20px;
+        }
+
+        .header {
+          padding: 25px 20px;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .account-setup,
+        .output-panel {
+          padding: 20px;
+        }
+      }
+
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+        display: none;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="bank-logo">
+          <i class="fas fa-university"></i>
+        </div>
+        <h1>Bank Of Gujarat</h1>
+        <p>Manage your finances with style and ease</p>
+      </div>
+
+      <div class="content">
+        <div class="account-setup">
+          <h2 class="section-title">
+            <i class="fas fa-user-circle"></i> Account Setup
+          </h2>
+
+          <div class="form-group">
+            <label for="accountName">Account Holder Name</label>
+            <input
+              type="text"
+              id="accountName"
+              class="form-control"
+              placeholder="Enter your full name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="initialBalance">Initial Balance ($)</label>
+            <input
+              type="number"
+              id="initialBalance"
+              class="form-control"
+              placeholder="Enter initial deposit amount"
+              min="0"
+              step="0.01"
+            />
+          </div>
+
+          <button id="setupAccount" class="btn btn-primary">
+            <i class="fas fa-check-circle"></i> Create My Account
+          </button>
+          <div class="loader" id="accountLoader"></div>
+        </div>
+
+        <div>
+          <h2 class="section-title">
+            <i class="fas fa-sliders-h"></i> Account Actions
+          </h2>
+          <div class="actions-panel">
+            <button class="action-btn balance" id="checkBalance" onclick="checkBalance()">
+              <i class="fas fa-balance-scale"></i> Check Balance
+            </button>
+            <button class="action-btn deposit" id="depositBtn" onclick="deposit()">
+              <i class="fas fa-plus-circle"></i> Deposit Funds
+            </button>
+            <button class="action-btn withdraw" id="withdrawBtn" onclick="withdraw()">
+              <i class="fas fa-minus-circle"></i> Withdraw Funds
+            </button>
+            <!-- <button class="action-btn history" id="viewHistory">
+              <i class="fas fa-history"></i> View Transaction History
+            </button> -->
+          </div>
+
+          <div class="output-panel" id="outputPanel">
+            <div class="output-message" id="outputMessage">
+              Welcome! Set up your account to get started.
+            </div>
+            <div
+              id="balanceDisplay"
+              style="display: none"
+              class="balance-display"
+            ></div>
+            <div
+              id="historyContainer"
+              class="history-container"
+              style="display: none"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/script1.js" type="text/javascript"></script>
+  </body>
+</html>
