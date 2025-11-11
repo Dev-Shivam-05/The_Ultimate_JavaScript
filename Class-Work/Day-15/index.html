@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Title</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bootstrap CSS v5.2.1 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+    </head>
+
+    <body>
+        <main>
+            <section class="dogImage">
+                <div class="container">
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-md-6">
+                            
+                            <div class="d-flex justify-content-center align-items-center mt-4" style="height: 300px;">
+                                <div class="loader p-4">
+                                    <img id="loader" src="./assets/Infinity@1x-1.0s-200px-200px.gif" class="object-fit-cover w-100 h-100 d-none">
+                                </div>
+                                <img id="dog-URL" src="https://images.dog.ceo/breeds/terrier-american/n02093428_12016.jpg" class="object-fit-cover w-100 h-100 d-block">
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center mt-5">
+                                <button type="button" class="btn btn-primary rounded w-25" onclick="handleApi()">Fetch</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Bootstrap JavaScript Libraries -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            let dogUrl = document.getElementById('dog-URL');
+            let loader = document.getElementById('loader');
+            let base_Url = "https://dog.ceo/api/breeds/image/random";
+            async function handleApi() {
+                try {
+                    loader.classList.remove('d-none');
+                    dogUrl.classList.add('d-none');
+                    let response = await fetch(base_Url);
+                    let data = await response.json();
+                    dogUrl.classList.remove('d-none');
+                    loader.classList.add('d-none');
+                    dogUrl.src = data.message;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        </script>
+    </body>
+</html>
+
+
+<!-- 
+<img src="" id="dogImg" alt="" width="300px" height="300px" class="object-fit-cover">
+
+<script>
+    let dogImg = document.getElementById('dogImg')
+
+    fetch('https://dog.ceo/api/breeds/image/random')
+
+        .then((response) => {
+            return response.json()
+        })
+
+        .then((data) => {
+            dogImg.src = data.message
+        })
+
+        .catch((error) => {
+            console.log(error)
+        })
+</script> -->

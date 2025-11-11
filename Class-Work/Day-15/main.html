@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog API Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4e77fa;
+            --primary-light: #6a91fb;
+            --secondary: #ff6b6b;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .dog-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .content {
+            padding: 40px;
+            text-align: center;
+        }
+
+        /* Breed selection styles */
+        .breed-selection {
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .breed-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: left;
+        }
+
+        .breed-select-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        select#breedSelect {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234e77fa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+        }
+
+        select#breedSelect:hover,
+        select#breedSelect:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(78, 119, 250, 0.2);
+            outline: none;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .fetch-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(78, 119, 250, 0.3);
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .random-btn {
+            background: var(--secondary);
+        }
+
+        .fetch-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(78, 119, 250, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .random-btn:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .fetch-btn:active {
+            transform: translateY(1px);
+        }
+
+        .fetch-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: 0.5s;
+        }
+
+        .fetch-btn:hover::before {
+            left: 100%;
+        }
+
+        .loading {
+            display: none;
+            margin: 30px auto;
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--gray);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .image-container {
+            width: 100%;
+            min-height: 300px;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--gray);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .image-container:hover::before {
+            opacity: 1;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            transition: var(--transition);
+            transform: scale(1);
+            border-radius: 15px;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .no-image {
+            font-size: 1.2rem;
+            color: var(--dark);
+            opacity: 0.6;
+            padding: 40px;
+        }
+
+        .image-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            background: var(--dark);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .fetch-btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .content {
+                padding: 25px 15px;
+            }
+            
+            .image-container {
+                min-height: 250px;
+            }
+        }
+
+        /* Pulse animation for first load */
+        .pulse {
+            animation: pulse 1.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Error state */
+        .error {
+            color: var(--secondary);
+            font-weight: 600;
+            margin: 20px 0;
+            display: none;
+            text-align: center;
+        }
+
+        /* Success animation */
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale3d(.3, .3, .3);
+            }
+            to {
+                opacity: 1;
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        .zoomIn {
+            animation: zoomIn 0.5s ease forwards;
+        }
+
+        /* Breed tag styles */
+        .selected-breed {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Search input for breed filtering */
+        .breed-search {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .breed-search:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(78, 119, 250, 0.2);
+            outline: none;
+        }
+
+        /* Sub-breeds container */
+        .sub-breed-container {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .sub-breed-select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gray);
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234e77fa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="dog-icon">
+                <i class="fas fa-dog"></i>
+            </div>
+            <h1>Dog API Explorer</h1>
+            <p class="subtitle">Discover adorable dogs by breed or get a random surprise!</p>
+        </header>
+        
+        <div class="content">
+            <div class="breed-selection">
+                <label for="breedSearch" class="breed-label">Search for a breed:</label>
+                <input type="text" id="breedSearch" class="breed-search" placeholder="Type to filter breeds...">
+                
+                <label for="breedSelect" class="breed-label">Select a breed:</label>
+                <div class="breed-select-container">
+                    <select id="breedSelect">
+                        <option value="">Loading breeds...</option>
+                    </select>
+                </div>
+                
+                <div class="sub-breed-container" id="subBreedContainer">
+                    <label for="subBreedSelect" class="breed-label">Select a sub-breed (optional):</label>
+                    <select id="subBreedSelect" class="sub-breed-select">
+                        <option value="">All sub-breeds</option>
+                    </select>
+                </div>
+                
+                <div id="selectedBreedTag"></div>
+            </div>
+            
+            <div class="btn-container">
+                <button class="fetch-btn" id="fetchBtn">
+                    <i class="fas fa-paw"></i> Fetch This Breed
+                </button>
+                <button class="fetch-btn random-btn" id="randomBtn">
+                    <i class="fas fa-dice"></i> Random Dog
+                </button>
+            </div>
+            
+            <div class="loading" id="loading"></div>
+            
+            <div class="error" id="error">Oops! Something went wrong. Please try again.</div>
+            
+            <div class="image-container" id="imageContainer">
+                <div class="no-image">Your dog image will appear here</div>
+            </div>
+            
+            <div class="image-info" id="imageInfo">
+                <p><i class="fas fa-info-circle"></i> <span id="imageBreedInfo">This adorable pup was fetched from The Dog API</span></p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Created with ❤️ for dog lovers everywhere</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fetchBtn = document.getElementById('fetchBtn');
+            const randomBtn = document.getElementById('randomBtn');
+            const loading = document.getElementById('loading');
+            const imageContainer = document.getElementById('imageContainer');
+            const imageInfo = document.getElementById('imageInfo');
+            const errorElement = document.getElementById('error');
+            const breedSelect = document.getElementById('breedSelect');
+            const subBreedContainer = document.getElementById('subBreedContainer');
+            const subBreedSelect = document.getElementById('subBreedSelect');
+            const breedSearch = document.getElementById('breedSearch');
+            const selectedBreedTag = document.getElementById('selectedBreedTag');
+            const imageBreedInfo = document.getElementById('imageBreedInfo');
+            
+            let allBreeds = {};
+            let currentBreed = '';
+            let currentSubBreed = '';
+
+            // Initial pulse animation
+            setTimeout(() => {
+                fetchBtn.classList.add('pulse');
+                randomBtn.classList.add('pulse');
+            }, 1000);
+            
+            // Fetch all breeds on page load
+            fetchBreeds();
+            
+            // Event listeners
+            fetchBtn.addEventListener('click', fetchBreedDog);
+            randomBtn.addEventListener('click', fetchRandomDog);
+            breedSelect.addEventListener('change', handleBreedChange);
+            breedSearch.addEventListener('input', filterBreeds);
+            
+            async function fetchBreeds() {
+                try {
+                    const response = await fetch('https://dog.ceo/api/breeds/list/all');
+                    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') {
+                        allBreeds = data.message;
+                        populateBreeds();
+                    } else {
+                        throw new Error('API returned an error');
+                    }
+                } catch (error) {
+                    console.error('Error fetching breeds:', error);
+                    breedSelect.innerHTML = '<option value="">Error loading breeds</option>';
+                }
+            }
+            
+            function populateBreeds() {
+                breedSelect.innerHTML = '<option value="">Select a breed...</option>';
+                
+                Object.keys(allBreeds).forEach(breed => {
+                    const option = document.createElement('option');
+                    option.value = breed;
+                    option.textContent = formatBreedName(breed);
+                    breedSelect.appendChild(option);
+                });
+                
+                // Enable the select once populated
+                breedSelect.disabled = false;
+            }
+            
+            function formatBreedName(breed) {
+                return breed.charAt(0).toUpperCase() + breed.slice(1).replace(/-/g, ' ');
+            }
+            
+            function handleBreedChange() {
+                currentBreed = breedSelect.value;
+                
+                // Reset sub-breed
+                currentSubBreed = '';
+                subBreedSelect.innerHTML = '<option value="">All sub-breeds</option>';
+                
+                // Show/hide sub-breed selector based on whether there are sub-breeds
+                if (currentBreed && allBreeds[currentBreed] && allBreeds[currentBreed].length > 0) {
+                    subBreedContainer.style.display = 'block';
+                    
+                    // Populate sub-breeds
+                    allBreeds[currentBreed].forEach(subBreed => {
+                        const option = document.createElement('option');
+                        option.value = subBreed;
+                        option.textContent = formatBreedName(subBreed);
+                        subBreedSelect.appendChild(option);
+                    });
+                } else {
+                    subBreedContainer.style.display = 'none';
+                }
+                
+                // Update selected breed tag
+                updateSelectedBreedTag();
+            }
+            
+            subBreedSelect.addEventListener('change', function() {
+                currentSubBreed = this.value;
+                updateSelectedBreedTag();
+            });
+            
+            function updateSelectedBreedTag() {
+                selectedBreedTag.innerHTML = '';
+                
+                if (currentBreed) {
+                    let displayText = formatBreedName(currentBreed);
+                    if (currentSubBreed) {
+                        displayText += ` (${formatBreedName(currentSubBreed)})`;
+                    }
+                    
+                    const tag = document.createElement('div');
+                    tag.className = 'selected-breed';
+                    tag.textContent = displayText;
+                    selectedBreedTag.appendChild(tag);
+                }
+            }
+            
+            function filterBreeds() {
+                const searchTerm = breedSearch.value.toLowerCase().trim();
+                
+                // Save current selection
+                const currentSelection = breedSelect.value;
+                
+                // Filter options
+                Array.from(breedSelect.options).forEach(option => {
+                    if (option.value === '') {
+                        option.style.display = 'block';
+                    } else {
+                        const breedName = option.textContent.toLowerCase();
+                        option.style.display = breedName.includes(searchTerm) ? 'block' : 'none';
+                    }
+                });
+                
+                // Restore selection if it still exists and matches filter
+                if (currentSelection && document.querySelector(`#breedSelect option[value="${currentSelection}"]`)?.style.display !== 'none') {
+                    breedSelect.value = currentSelection;
+                }
+            }
+            
+            async function fetchBreedDog() {
+                if (!currentBreed) {
+                    showError('Please select a breed first!');
+                    return;
+                }
+                
+                // Reset states
+                resetUI();
+                
+                // Show loading
+                loading.style.display = 'block';
+                fetchBtn.disabled = true;
+                
+                try {
+                    let url = '';
+                    
+                    if (currentSubBreed) {
+                        // Fetch specific sub-breed
+                        url = `https://dog.ceo/api/breed/${currentBreed}/${currentSubBreed}/images/random`;
+                    } else {
+                        // Fetch breed (any sub-breed)
+                        url = `https://dog.ceo/api/breed/${currentBreed}/images/random`;
+                    }
+                    
+                    const response = await fetch(url);
+                    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') {
+                        displayImage(data.message, getCurrentBreedDisplayName());
+                    } else {
+                        throw new Error('API returned an error');
+                    }
+                } catch (error) {
+                    console.error('Error fetching dog image:', error);
+                    showError('Failed to fetch image for this breed. Try another one!');
+                } finally {
+                    fetchBtn.disabled = false;
+                }
+            }
+            
+            async function fetchRandomDog() {
+                // Reset states
+                resetUI();
+                
+                // Show loading
+                loading.style.display = 'block';
+                randomBtn.disabled = true;
+                
+                try {
+                    const response = await fetch('https://dog.ceo/api/breeds/image/random');
+                    
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') {
+                        displayImage(data.message, 'Random Dog');
+                    } else {
+                        throw new Error('API returned an error');
+                    }
+                } catch (error) {
+                    console.error('Error fetching random dog image:', error);
+                    showError('Oops! Something went wrong. Please try again.');
+                } finally {
+                    randomBtn.disabled = false;
+                }
+            }
+            
+            function displayImage(imageUrl, breedName) {
+                // Hide loading
+                loading.style.display = 'none';
+                
+                // Create image element
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = breedName;
+                
+                // Add image to container
+                imageContainer.innerHTML = '';
+                imageContainer.appendChild(img);
+                
+                // Apply zoom animation
+                setTimeout(() => {
+                    img.classList.add('zoomIn');
+                }, 100);
+                
+                // Update info text
+                imageBreedInfo.textContent = `This ${breedName} was fetched from The Dog API`;
+                imageInfo.style.display = 'block';
+            }
+            
+            function getCurrentBreedDisplayName() {
+                if (currentSubBreed) {
+                    return `${formatBreedName(currentSubBreed)} ${formatBreedName(currentBreed)}`;
+                }
+                return formatBreedName(currentBreed);
+            }
+            
+            function resetUI() {
+                errorElement.style.display = 'none';
+                imageInfo.style.display = 'none';
+                imageContainer.innerHTML = '';
+            }
+            
+            function showError(message) {
+                loading.style.display = 'none';
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                imageContainer.innerHTML = '<div class="no-image">Failed to load image 😢</div>';
+            }
+        });
+    </script>
+</body>
+</html>
