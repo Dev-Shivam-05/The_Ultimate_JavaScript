@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlixVault - Premium Movie Collection</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-bg: #0a0e27;
+            --secondary-bg: #151935;
+            --card-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-purple: #7c3aed;
+            --accent-pink: #ec4899;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Parallax Background */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%230f0f0f;stop-opacity:1" /><stop offset="100%" style="stop-color:%231a1a1a;stop-opacity:1" /></linearGradient></defs><rect width="1920" height="1080" fill="url(%23grad)"/><circle cx="100" cy="100" r="50" fill="%23ffd700" opacity="0.05"/><circle cx="1820" cy="980" r="80" fill="%2300ff88" opacity="0.03"/></svg>') no-repeat center;
+            background-size: cover;
+            z-index: -1;
+            transform: translateZ(-1px) scale(1.5);
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--accent-gold), var(--accent-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 50px 12px 20px;
+            border: 2px solid var(--accent-neon);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-neon);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--accent-gold);
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            padding: 20px 0;
+            background: rgba(26, 26, 26, 0.8);
+            margin: 20px 0;
+            border-radius: 15px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--accent-silver);
+            color: var(--accent-silver);
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent-neon);
+            border-color: var(--accent-neon);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Movie Card Styles */
+        .movie-grid {
+            padding: 30px 0;
+        }
+
+        .movie-card {
+            perspective: 1000px;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+        }
+
+        .movie-card:hover .card-inner {
+            transform: rotateY(10deg) rotateX(-5deg) scale(1.05);
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--secondary-dark);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(255, 215, 0, 0.1));
+        }
+
+        .movie-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover .movie-poster {
+            transform: scale(1.1);
+        }
+
+        .movie-info {
+            padding: 15px;
+            background: linear-gradient(to top, rgba(15, 15, 15, 0.95), transparent);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            transform: translateY(50px);
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover .movie-info {
+            transform: translateY(0);
+        }
+
+        .movie-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--accent-gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .movie-year {
+            color: var(--accent-silver);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .movie-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .star {
+            color: var(--accent-gold);
+            margin-right: 2px;
+            font-size: 0.9rem;
+        }
+
+        .movie-genre {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid var(--accent-neon);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+
+        .movie-tagline {
+            font-style: italic;
+            color: var(--accent-silver);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            background: var(--secondary-dark);
+            border: 2px solid var(--accent-neon);
+            border-radius: 15px;
+            color: #fff;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--accent-silver);
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(255, 215, 0, 0.1));
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        /* Scroll Animation */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px) rotateX(-10deg);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-animate.show {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .brand-title {
+                font-size: 1.5rem;
+            }
+            
+            .card-inner {
+                height: 400px;
+            }
+            
+            .movie-poster {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 6px 15px;
+            }
+            
+            .card-inner {
+                height: 350px;
+            }
+            
+            .movie-poster {
+                height: 200px;
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--accent-silver);
+            border-top: 3px solid var(--accent-neon);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 9999;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-bg"></div>
+    <div class="loader" id="loader"></div>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <h1 class="brand-title text-center text-md-start">CineShowcase</h1>
+                </div>
+                <div class="col-md-8">
+                    <div class="search-container">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search movies by title, genre, or rating...">
+                        <button class="search-btn" onclick="searchMovies()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filter Controls -->
+    <div class="container">
+        <div class="filter-controls text-center">
+            <button class="filter-btn active" onclick="filterMovies('all')">All Movies</button>
+            <button class="filter-btn" onclick="filterMovies('action')">Action</button>
+            <button class="filter-btn" onclick="filterMovies('drama')">Drama</button>
+            <button class="filter-btn" onclick="filterMovies('sci-fi')">Sci-Fi</button>
+            <button class="filter-btn" onclick="filterMovies('thriller')">Thriller</button>
+            <button class="filter-btn" onclick="sortMovies('rating')">Sort by Rating</button>
+            <button class="filter-btn" onclick="sortMovies('year')">Sort by Year</button>
+        </div>
+    </div>
+
+    <!-- Movie Grid -->
+    <div class="container movie-grid">
+        <div class="row" id="movieGrid">
+            <!-- Movie cards will be dynamically inserted here -->
+
+        </div>
+    </div>
+
+    <!-- Movie Details Modal -->
+    <div class="modal fade" id="movieModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Movie Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img id="modalPoster" src="" alt="Movie Poster" class="img-fluid rounded">
+                        </div>
+                        <div class="col-md-8">
+                            <p><strong>Year:</strong> <span id="modalYear"></span></p>
+                            <p><strong>Genre:</strong> <span id="modalGenre"></span></p>
+                            <p><strong>Rating:</strong> <span id="modalRating"></span></p>
+                            <p><strong>Director:</strong> <span id="modalDirector"></span></p>
+                            <p><strong>Cast:</strong> <span id="modalCast"></span></p>
+                            <hr>
+                            <h6>Synopsis</h6>
+                            <p id="modalSynopsis"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./js/main.js" type="text/css"></script>
+    <!-- <script>
+        // Movie Data
+        const movies = [
+            {
+                id: 1,
+                title: "Inception",
+                year: 2010,
+                rating: 4.8,
+                genre: ["Sci-Fi", "Thriller"],
+                tagline: "Your mind is the scene of the crime",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/ffd700?text=Inception",
+                director: "Christopher Nolan",
+                cast: "Leonardo DiCaprio, Ellen Page, Tom Hardy",
+                synopsis: "A skilled thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
+            },
+            {
+                id: 2,
+                title: "The Dark Knight",
+                year: 2008,
+                rating: 4.9,
+                genre: ["Action", "Drama"],
+                tagline: "Why so serious?",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/00ff88?text=Dark+Knight",
+                director: "Christopher Nolan",
+                cast: "Christian Bale, Heath Ledger, Aaron Eckhart",
+                synopsis: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests."
+            },
+            {
+                id: 3,
+                title: "Interstellar",
+                year: 2014,
+                rating: 4.7,
+                genre: ["Sci-Fi", "Drama"],
+                tagline: "Mankind was born on Earth. It was never meant to die here",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/c0c0c0?text=Interstellar",
+                director: "Christopher Nolan",
+                cast: "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
+                synopsis: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
+            },
+            {
+                id: 4,
+                title: "The Matrix",
+                year: 1999,
+                rating: 4.7,
+                genre: ["Sci-Fi", "Action"],
+                tagline: "Welcome to the Real World",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/ff0000?text=The+Matrix",
+                director: "The Wachowskis",
+                cast: "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
+                synopsis: "A computer programmer discovers that reality as he knows it is a simulation created by machines."
+            },
+            {
+                id: 5,
+                title: "Pulp Fiction",
+                year: 1994,
+                rating: 4.8,
+                genre: ["Drama", "Thriller"],
+                tagline: "You won't know the facts until you've seen the fiction",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/ff6600?text=Pulp+Fiction",
+                director: "Quentin Tarantino",
+                cast: "John Travolta, Uma Thurman, Samuel L. Jackson",
+                synopsis: "The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence and redemption."
+            },
+            {
+                id: 6,
+                title: "The Shawshank Redemption",
+                year: 1994,
+                rating: 4.9,
+                genre: ["Drama"],
+                tagline: "Fear can hold you prisoner. Hope can set you free",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/0099ff?text=Shawshank",
+                director: "Frank Darabont",
+                cast: "Tim Robbins, Morgan Freeman, Bob Gunton",
+                synopsis: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
+            },
+            {
+                id: 7,
+                title: "Fight Club",
+                year: 1999,
+                rating: 4.7,
+                genre: ["Drama", "Thriller"],
+                tagline: "Mischief. Mayhem. Soap.",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/ff00ff?text=Fight+Club",
+                director: "David Fincher",
+                cast: "Brad Pitt, Edward Norton, Helena Bonham Carter",
+                synopsis: "An insomniac office worker and a devil-may-care soap maker form an underground fight club."
+            },
+            {
+                id: 8,
+                title: "The Godfather",
+                year: 1972,
+                rating: 4.9,
+                genre: ["Drama", "Crime"],
+                tagline: "An offer you can't refuse",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/800080?text=The+Godfather",
+                director: "Francis Ford Coppola",
+                cast: "Marlon Brando, Al Pacino, James Caan",
+                synopsis: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."
+            },
+            {
+                id: 9,
+                title: "Blade Runner 2049",
+                year: 2017,
+                rating: 4.6,
+                genre: ["Sci-Fi", "Thriller"],
+                tagline: "The future is now",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/00ffff?text=Blade+Runner",
+                director: "Denis Villeneuve",
+                cast: "Ryan Gosling, Harrison Ford, Ana de Armas",
+                synopsis: "A young blade runner discovers a long-buried secret that has the potential to plunge what's left of society into chaos."
+            },
+            {
+                id: 10,
+                title: "Mad Max: Fury Road",
+                year: 2015,
+                rating: 4.6,
+                genre: ["Action", "Sci-Fi"],
+                tagline: "What a lovely day!",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/ff4500?text=Mad+Max",
+                director: "George Miller",
+                cast: "Tom Hardy, Charlize Theron, Nicholas Hoult",
+                synopsis: "In a post-apocalyptic wasteland, Max teams up with Furiosa to flee from cult leader Immortan Joe and his army."
+            },
+            {
+                id: 11,
+                title: "The Prestige",
+                year: 2006,
+                rating: 4.7,
+                genre: ["Drama", "Thriller"],
+                tagline: "Are you watching closely?",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/9400d3?text=The+Prestige",
+                director: "Christopher Nolan",
+                cast: "Christian Bale, Hugh Jackman, Scarlett Johansson",
+                synopsis: "Two stage magicians engage in competitive one-upmanship in an attempt to create the ultimate stage illusion."
+            },
+            {
+                id: 12,
+                title: "Whiplash",
+                year: 2014,
+                rating: 4.7,
+                genre: ["Drama", "Music"],
+                tagline: "The road to greatness can take you to the edge",
+                poster: "https://via.placeholder.com/300x450/1a1a1a/228b22?text=Whiplash",
+                director: "Damien Chazelle",
+                cast: "Miles Teller, J.K. Simmons, Paul Reiser",
+                synopsis: "A promising young drummer enrolls at a cut-throat music conservatory where his dreams of greatness are mentored by an instructor who will stop at nothing."
+            }
+        ];
+
+        let currentMovies = [...movies];
+        let isFlipping = false;
+
+        // Initialize the page
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMovies(currentMovies);
+            setupScrollAnimations();
+        });
+
+        // Render movies to grid
+        function renderMovies(moviesToRender) {
+            const movieGrid = document.getElementById('movieGrid');
+            movieGrid.innerHTML = '';
+
+            moviesToRender.forEach((movie, index) => {
+                const colClass = getResponsiveColClass();
+                const movieCard = createMovieCard(movie, index);
+                movieGrid.innerHTML += movieCard;
+            });
+
+            // Re-setup animations after rendering
+            setTimeout(() => {
+                setupCardAnimations();
+                triggerScrollAnimations();
+            }, 100);
+        }
+
+        // Get responsive column class based on screen size
+        function getResponsiveColClass() {
+            return 'col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2';
+        }
+
+        // Create movie card HTML
+        function createMovieCard(movie, index) {
+            const stars = generateStars(movie.rating);
+            const genres = movie.genre.map(g => `<span class="movie-genre">${g}</span>`).join('');
+            
+            return `
+                <div class="${getResponsiveColClass()} mb-4 scroll-animate" style="animation-delay: ${index * 0.1}s">
+                    <div class="movie-card" onclick="handleCardClick(event, ${movie.id})">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
+                                <div class="movie-info">
+                                    <h3 class="movie-title">${movie.title}</h3>
+                                    <p class="movie-year">${movie.year}</p>
+                                    <div class="movie-rating">${stars}</div>
+                                    <div>${genres}</div>
+                                    <p class="movie-tagline">"${movie.tagline}"</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <h4 class="mb-3" style="color: var(--accent-gold);">${movie.title}</h4>
+                                <p><strong>Director:</strong> ${movie.director}</p>
+                                <p><strong>Year:</strong> ${movie.year}</p>
+                                <p><strong>Rating:</strong> ${movie.rating}/5</p>
+                                <p class="mt-3">${movie.synopsis.substring(0, 150)}...</p>
+                                <button class="btn btn-sm mt-3" style="background: var(--accent-neon); color: var(--primary-dark);" onclick="showMovieDetails(${movie.id})">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Generate star rating HTML
+        function generateStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+            const emptyStars = 5 - fullStars - halfStar;
+            
+            let stars = '';
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star star"></i>';
+            }
+            if (halfStar) {
+                stars += '<i class="fas fa-star-half-alt star"></i>';
+            }
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star star"></i>';
+            }
+            return stars;
+        }
+
+        // Handle card click for flip animation
+        function handleCardClick(event, movieId) {
+            if (event.target.tagName === 'BUTTON') return;
+            
+            const card = event.currentTarget;
+            if (window.innerWidth <= 768) {
+                // On mobile, flip the card
+                card.classList.toggle('flipped');
+            } else {
+                // On desktop, show modal on click
+                showMovieDetails(movieId);
+            }
+        }
+
+        // Show movie details in modal
+        function showMovieDetails(movieId) {
+            const movie = movies.find(m => m.id === movieId);
+            if (!movie) return;
+
+            document.getElementById('modalTitle').textContent = movie.title;
+            document.getElementById('modalPoster').src = movie.poster;
+            document.getElementById('modalYear').textContent = movie.year;
+            document.getElementById('modalGenre').textContent = movie.genre.join(', ');
+            document.getElementById('modalRating').innerHTML = generateStars(movie.rating) + ` (${movie.rating}/5)`;
+            document.getElementById('modalDirector').textContent = movie.director;
+            document.getElementById('modalCast').textContent = movie.cast;
+            document.getElementById('modalSynopsis').textContent = movie.synopsis;
+
+            const modal = new bootstrap.Modal(document.getElementById('movieModal'));
+            modal.show();
+        }
+
+        // Search functionality
+        function searchMovies() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (!searchTerm) {
+                currentMovies = [...movies];
+            } else {
+                currentMovies = movies.filter(movie => 
+                    movie.title.toLowerCase().includes(searchTerm) ||
+                    movie.genre.some(g => g.toLowerCase().includes(searchTerm)) ||
+                    movie.tagline.toLowerCase().includes(searchTerm) ||
+                    movie.rating.toString().includes(searchTerm)
+                );
+            }
+            
+            showLoader();
+            setTimeout(() => {
+                renderMovies(currentMovies);
+                hideLoader();
+            }, 500);
+        }
+
+        // Real-time search on input
+        document.getElementById('searchInput').addEventListener('input', searchMovies);
+
+        // Filter movies by genre
+        function filterMovies(genre) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (genre === 'all') {
+                currentMovies = [...movies];
+            } else {
+                currentMovies = movies.filter(movie => 
+                    movie.genre.some(g => g.toLowerCase() === genre.toLowerCase())
+                );
+            }
+            
+            showLoader();
+            setTimeout(() => {
+                renderMovies(currentMovies);
+                hideLoader();
+            }, 500);
+        }
+
+        // Sort movies
+        function sortMovies(sortBy) {
+            if (sortBy === 'rating') {
+                currentMovies.sort((a, b) => b.rating - a.rating);
+            } else if (sortBy === 'year') {
+                currentMovies.sort((a, b) => b.year - a.year);
+            }
+            
+            showLoader();
+            setTimeout(() => {
+                renderMovies(currentMovies);
+                hideLoader();
+            }, 500);
+        }
+
+        // Setup card animations
+        function setupCardAnimations() {
+            const cards = document.querySelectorAll('.movie-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    if (window.innerWidth > 768) {
+                        this.style.transform = 'translateZ(50px)';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    if (window.innerWidth > 768) {
+                        this.style.transform = 'translateZ(0)';
+                    }
+                });
+
+                // Touch events for mobile
+                card.addEventListener('touchstart', function() {
+                    this.classList.add('touch-hover');
+                });
+
+                card.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.classList.remove('touch-hover');
+                    }, 500);
+                });
+            });
+        }
+
+        // Setup scroll animations
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.scroll-animate').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Trigger scroll animations
+        function triggerScrollAnimations() {
+            const elements = document.querySelectorAll('.scroll-animate');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('show');
+                }, index * 50);
+            });
+        }
+
+        // Loader functions
+        function showLoader() {
+            document.getElementById('loader').style.display = 'block';
+        }
+
+        function hideLoader() {
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        // Parallax scrolling effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.parallax-bg');
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                renderMovies(currentMovies);
+            }, 250);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('movieModal'));
+                if (modal) modal.hide();
+            }
+        });
+    </script> -->
+</body>
+</html>
