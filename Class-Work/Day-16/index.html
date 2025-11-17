@@ -524,9 +524,7 @@
             <i class="fas fa-dice"></i> Random Dog
           </button>
         </div>
-
         <div class="loading" id="loading"></div>
-
         <div class="error" id="error">
           Oops! Something went wrong. Please try again.
         </div>
@@ -755,24 +753,24 @@
                     fetchBtn.disabled = false;
                 }
             }
+        
+        async function fetchRandomDog() {
+            // Reset states
+            resetUI();
             
-            async function fetchRandomDog() {
-                // Reset states
-                resetUI();
+            // Show loading
+            loading.style.display = 'block';
+            randomBtn.disabled = true;
+            
+            try {
+                const response = await fetch('https://dog.ceo/api/breeds/image/random');
                 
-                // Show loading
-                loading.style.display = 'block';
-                randomBtn.disabled = true;
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 
-                try {
-                    const response = await fetch('https://dog.ceo/api/breeds/image/random');
-                    
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    
-                    const data = await response.json();
-                    
+                const data = await response.json();
+                
                     if (data.status === 'success') {
                         displayImage(data.message, 'Random Dog');
                     } else {

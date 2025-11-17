@@ -46,6 +46,8 @@ selectBreed.addEventListener('change', async (e) => {
     getImage.src = data.message;
     getImage.alt = breed;
 })
+
+
 /* 
 const handelApi = () => {
     breedList.forEach((breed) => {
@@ -83,6 +85,5 @@ viewbreed.addEventListener('change', async (e) => {
         console.log(error.message);
     }
 })
-
 fetchBreed()
 */
