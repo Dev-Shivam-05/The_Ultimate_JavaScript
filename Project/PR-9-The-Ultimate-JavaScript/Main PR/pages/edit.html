@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Editing Product</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      :root {
+        --primary-color: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary-color: #f59e0b;
+        --dark-color: #1e293b;
+        --light-bg: #f8fafc;
+        --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--light-bg);
+        color: var(--dark-color);
+      }
+      /* Product Cards */
+      .product-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        height: 100%;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: var(--card-shadow-hover);
+      }
+
+      .product-img-container {
+        position: relative;
+        overflow: hidden;
+        height: 250px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .product-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .product-card:hover .product-img {
+        transform: scale(1.1);
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--secondary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+
+      .product-body {
+        padding: 1.5rem;
+      }
+
+      .product-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--dark-color);
+      }
+
+      .product-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      .add-to-cart-btn {
+        width: 100%;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .add-to-cart-btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+      }
+
+      .add-to-cart-btn:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .add-to-cart-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.5);
+      }
+
+      /* Form Styling */
+      .form-container {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: var(--card-shadow);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark-color);
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: var(--dark-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .form-control {
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        outline: none;
+      }
+
+      .submit-btn {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--primary-dark) 100%
+        );
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 30px -10px rgba(99, 102, 241, 0.4);
+      }
+
+      /* Table Styling */
+      .products-table {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+      }
+
+      .table {
+        margin-bottom: 0;
+      }
+
+      .table thead {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--primary-dark) 100%
+        );
+        color: white;
+      }
+
+      .table thead th {
+        border: none;
+        padding: 1.25rem 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        letter-spacing: 0.5px;
+      }
+
+      .table tbody tr {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .table tbody tr:hover {
+        background: var(--light-bg);
+        transform: scale(1.01);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .table tbody td {
+        padding: 1.25rem 1rem;
+        vertical-align: middle;
+        border-color: #f3f4f6;
+      }
+
+      .product-thumb {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .table tbody tr:hover .product-thumb {
+        transform: scale(1.1);
+      }
+
+      /* Cart Dropdown */
+      .cart-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--card-shadow-hover);
+        padding: 1.5rem;
+        min-width: 350px;
+        margin-top: 1rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .cart-dropdown.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 12px;
+        transition: background 0.3s ease;
+      }
+
+      .cart-item:hover {
+        background: var(--light-bg);
+      }
+
+      .cart-item-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-right: 1rem;
+      }
+
+      .cart-item-details {
+        flex: 1;
+      }
+
+      .cart-item-name {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .cart-item-price {
+        color: var(--primary-color);
+        font-weight: 700;
+      }
+
+      /* Section Spacing */
+      .section {
+        padding: 4rem 0;
+        /* display: none; */
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      /* Animations */
+      .fade-in {
+        animation: fadeIn 0.6s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1rem;
+        }
+
+        .cart-dropdown {
+          min-width: 300px;
+          right: -50px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section id="edit-product" class="section">
+      <div class="container py-5">
+        <div class="form-container fade-in">
+          <h2 class="form-title">
+            <i class="bi bi-plus-circle me-2"></i>Edit Product
+          </h2>
+          <form id="productForm" method="post" onsubmit="handleData()">
+            <div class="mb-4">
+              <label class="form-label">Product Name</label>
+              <input
+                type="text"
+                class="form-control input"
+                name="productName"
+                value="Name"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Product Price</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="productPrice"
+                  id="productPrice"
+                  value=""  
+                  placeholder="0.00"
+                  step="0.01"
+                />
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Product Image URL</label>
+              <input
+                type="url"
+                class="form-control input"
+                name="productImage"
+                value="URL"
+                placeholder="https://example.com/image.jpg"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Product Category</label>
+              <select
+                class="form-control"
+                id="productCategory selectProductCategory"
+                name="productCategory"
+              >
+                <option class="selectOption" value="Electronics">Electronics</option>
+                <option class="selectOption" value="Accessories">Accessories</option>
+                <option class="selectOption" value="Computers">Computers</option>
+                <option class="selectOption"  value="Audio">Audio</option>
+                <option class="selectOption" value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Product Description</label>
+              <textarea
+                id="productDescription"
+                class="form-control"
+                name="productDescription"
+                rows="3"
+                placeholder="Enter product description"
+              ></textarea>
+            </div>
+
+            <a href="../index.html" class="submit-btn btn ">
+              <i class="bi bi-plus-lg me-2"></i>Update Product
+            </a>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/edit.js" type="text/javascript"></script>
+  </body>
+</html>
