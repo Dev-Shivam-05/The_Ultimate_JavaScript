@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Management System</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .page {
+        display: none;
+      }
+      .active-page {
+        display: block;
+      }
+      .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .notification.show {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="./index.html">Product Management</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html" data-page="home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./assets/pages/add_products.html" data-page="add-product"
+                >Add Product</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./assets/pages/view_products.html" data-page="view-product"
+                >View Products</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./assets/pages/cart.html" data-page="view-product"
+                >Cart</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Notification Area -->
+    <div
+      id="notification"
+      class="notification alert alert-success alert-dismissible fade"
+      role="alert"
+    >
+      <strong>Success!</strong>
+      <span id="notification-message">Product added successfully.</span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Home Page -->
+    <div id="home" class="page active-page py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 text-center">
+            <h1 class="display-4 mb-4">Welcome to Product Management System</h1>
+            <p class="lead">
+              Manage your products efficiently with our intuitive interface.
+            </p>
+            <p>
+              Use the navigation above to add new products or view existing
+              ones.
+            </p>
+            <div class="mt-5">
+              <img
+                src="https://via.placeholder.com/600x300?text=Product+Management"
+                alt="Product Management Illustration"
+                class="img-fluid rounded"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Product Page -->
+    <div id="add-product" class="page py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="card shadow">
+              <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">Add New Product</h2>
+              </div>
+              <div class="card-body">
+                <form id="productForm">
+                  <div class="mb-3">
+                    <label for="productName" class="form-label"
+                      >Product Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="productName"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="productDescription" class="form-label"
+                      >Description</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="productDescription"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="productPrice" class="form-label"
+                      >Price ($)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="productPrice"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="productCategory" class="form-label"
+                      >Category</label
+                    >
+                    <select class="form-select" id="productCategory" required>
+                      <option value="">Select a category</option>
+                      <option value="electronics">Electronics</option>
+                      <option value="clothing">Clothing</option>
+                      <option value="home">Home & Kitchen</option>
+                      <option value="sports">Sports & Outdoors</option>
+                      <option value="books">Books</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="productStock" class="form-label"
+                      >Stock Quantity</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="productStock"
+                      min="0"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="productImage" class="form-label"
+                      >Product Image URL</label
+                    >
+                    <input
+                      type="url"
+                      class="form-control"
+                      id="productImage"
+                      placeholder="https://example.com/image.jpg"
+                    />
+                  </div>
+
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button
+                      type="reset"
+                      class="btn btn-outline-secondary me-md-2"
+                    >
+                      Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                      Add Product
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Products Page -->
+    <div id="view-product" class="page py-4">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col">
+            <h1 class="display-6">Products List</h1>
+            <p class="text-muted">
+              Browse all available products in our inventory
+            </p>
+          </div>
+        </div>
+
+        <div class="row" id="productsContainer">
+          <!-- Products will be dynamically added here -->
+          <div class="col-12 text-center py-5" id="noProductsMessage">
+            <h3>No products found</h3>
+            <p class="text-muted">
+              Add your first product using the "Add Product" page
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize products array from localStorage or empty array
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+
+        // Navigation handling
+        const navLinks = document.querySelectorAll(".nav-link[data-page]");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetPage = this.getAttribute("data-page");
+
+            // Hide all pages
+            document.querySelectorAll(".page").forEach((page) => {
+              page.classList.remove("active-page");
+            });
+
+            // Show target page
+            document.getElementById(targetPage).classList.add("active-page");
+
+            // Update active state in navigation
+            navLinks.forEach((navLink) => navLink.classList.remove("active"));
+            this.classList.add("active");
+
+            // If viewing products, refresh the display
+            if (targetPage === "view-product") {
+              displayProducts();
+            }
+          });
+        });
+
+        // Form submission handling
+        const productForm = document.getElementById("productForm");
+        productForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get form values
+          const productName = document.getElementById("productName").value;
+          const productDescription =
+            document.getElementById("productDescription").value;
+          const productPrice = document.getElementById("productPrice").value;
+          const productCategory =
+            document.getElementById("productCategory").value;
+          const productStock = document.getElementById("productStock").value;
+          const productImage =
+            document.getElementById("productImage").value ||
+            "https://via.placeholder.com/300x200?text=No+Image";
+
+          // Create new product object
+          const newProduct = {
+            id: Date.now(), // Simple unique ID
+            name: productName,
+            description: productDescription,
+            price: parseFloat(productPrice),
+            category: productCategory,
+            stock: parseInt(productStock),
+            image: productImage,
+            dateAdded: new Date().toISOString(),
+          };
+
+          // Add to products array
+          products.push(newProduct);
+
+          // Save to localStorage
+          localStorage.setItem("products", JSON.stringify(products));
+
+          // Reset form
+          productForm.reset();
+
+          // Show notification
+          showNotification(
+            `Product "${productName}" has been added successfully!`
+          );
+
+          // Update products display if on view page
+          if (
+            document
+              .getElementById("view-product")
+              .classList.contains("active-page")
+          ) {
+            displayProducts();
+          }
+        });
+
+        // Function to display products
+        function displayProducts() {
+          const productsContainer =
+            document.getElementById("productsContainer");
+          const noProductsMessage =
+            document.getElementById("noProductsMessage");
+
+          // Clear current products
+          productsContainer.innerHTML = "";
+
+          if (products.length === 0) {
+            productsContainer.appendChild(noProductsMessage);
+            return;
+          }
+
+          // Create product cards
+          products.forEach((product) => {
+            const colDiv = document.createElement("div");
+            colDiv.className = "col-md-6 col-lg-4 mb-4";
+
+            const cardDiv = document.createElement("div");
+            cardDiv.className = "card product-card h-100 shadow-sm";
+
+            const img = document.createElement("img");
+            img.src = product.image;
+            img.className = "card-img-top";
+            img.alt = product.name;
+            img.style.height = "200px";
+            img.style.objectFit = "cover";
+
+            const cardBody = document.createElement("div");
+            cardBody.className = "card-body";
+
+            const cardTitle = document.createElement("h5");
+            cardTitle.className = "card-title";
+            cardTitle.textContent = product.name;
+
+            const cardText = document.createElement("p");
+            cardText.className = "card-text";
+            cardText.textContent = product.description;
+
+            const priceBadge = document.createElement("span");
+            priceBadge.className = "badge bg-success mb-2";
+            priceBadge.textContent = `$${product.price.toFixed(2)}`;
+
+            const infoDiv = document.createElement("div");
+            infoDiv.className =
+              "d-flex justify-content-between text-muted small";
+
+            const categorySpan = document.createElement("span");
+            categorySpan.innerHTML = `<strong>Category:</strong> ${product.category}`;
+
+            const stockSpan = document.createElement("span");
+            stockSpan.innerHTML = `<strong>Stock:</strong> ${product.stock}`;
+
+            // Append elements
+            infoDiv.appendChild(categorySpan);
+            infoDiv.appendChild(stockSpan);
+
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(priceBadge);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(infoDiv);
+
+            cardDiv.appendChild(img);
+            cardDiv.appendChild(cardBody);
+
+            colDiv.appendChild(cardDiv);
+            productsContainer.appendChild(colDiv);
+          });
+        }
+
+        // Function to show notification
+        function showNotification(message) {
+          const notification = document.getElementById("notification");
+          const messageElement = document.getElementById(
+            "notification-message"
+          );
+
+          messageElement.textContent = message; 
+          notification.classList.add("show");
+
+          // Auto-hide after 3 seconds
+          setTimeout(() => {
+            notification.classList.remove("show");
+          }, 3000);
+        }
+
+        // Initial display of products
+        displayProducts();
+      });
+    </script>
+  </body>
+</html>

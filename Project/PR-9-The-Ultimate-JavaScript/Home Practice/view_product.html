@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPro Manager | Product Management System</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css"> -->
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/logo.svg">
+
+  <style>
+    /* Theme Variables and Global Styles */
+    :root {
+      --bs-body-bg: #121212;
+      --bs-body-color: #f8f9fa;
+      --bs-border-color: #333;
+      --bs-primary: #0d6efd;
+      --bs-success: #198754;
+      --bs-info: #0dcaf0;
+      --bs-warning: #ffc107;
+      --bs-danger: #dc3545;
+      --bg-darker: #1e1e1e;
+      --bg-darkest: #151515;
+      --card-hover: rgba(255, 255, 255, 0.03);
+      --transition-speed: 0.3s;
+    }
+
+    /* Custom background classes */
+    .bg-darker {
+      background-color: var(--bg-darker) !important;
+    }
+
+    .bg-darkest {
+      background-color: var(--bg-darkest) !important;
+    }
+
+    /* Brand colors */
+    .brand-text .text-primary {
+      color: #66aaff !important;
+    }
+
+    /* Terminal styling */
+    .terminal-card {
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .terminal-header {
+      background-color: #2d2d2d;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .terminal-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .terminal-btn {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-btn.close {
+      background-color: #ff5f56;
+    }
+
+    .terminal-btn.minimize {
+      background-color: #ffbd2e;
+    }
+
+    .terminal-btn.maximize {
+      background-color: #27c93f;
+    }
+
+    .terminal-title {
+      color: #f8f9fa;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .terminal-body {
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .terminal-content .text-success {
+      color: #4ade80 !important;
+    }
+
+    .terminal-content .text-info {
+      color: #38bdf8 !important;
+    }
+
+    .terminal-content .text-danger {
+      color: #f87171 !important;
+    }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #121212;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .spinner > div {
+      width: 15px;
+      height: 15px;
+      background-color: #66aaff;
+      border-radius: 100%;
+      margin: 0 5px;
+      opacity: 0.8;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .spinner .bounce1 {
+      animation-delay: -0.32s;
+    }
+
+    .spinner .bounce2 {
+      animation-delay: -0.16s;
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% {
+          transform: scale(0);
+      }
+      40% {
+          transform: scale(1.0);
+      }
+    }
+
+    /* Card hover effect */
+    .hover-card {
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      border: 1px solid var(--bs-border-color);
+    }
+
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      background-color: var(--card-hover);
+    }
+
+    /* Tags input */
+    .tags-input {
+      position: relative;
+      width: 100%;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      background-color: rgba(13, 110, 253, 0.2);
+      color: #66aaff;
+      border-radius: 20px;
+      font-size: 14px;
+      margin: 2px;
+    }
+
+    .tag span {
+      margin-right: 8px;
+    }
+
+    .tag .remove-tag {
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+
+    /* Navigation link buttons */
+    .nav-link-btn {
+      color: var(--bs-body-color);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+
+    .nav-link-btn:hover {
+      color: #66aaff;
+    }
+
+    .nav-item-btn {
+      position: relative;
+      transition: all var(--transition-speed);
+    }
+
+    .nav-item-btn:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 5px;
+    }
+
+    .nav-item-btn.active {
+      color: #66aaff;
+      background-color: rgba(102, 170, 255, 0.1);
+      border-radius: 5px;
+    }
+
+    /* Form controls */
+    .form-control.bg-darkest,
+    .form-select.bg-darkest {
+      background-color: var(--bg-darkest);
+      border: 1px solid var(--bs-border-color);
+      color: var(--bs-body-color);
+    }
+
+    .form-control.bg-darkest:focus,
+    .form-select.bg-darkest:focus {
+      background-color: var(--bg-darkest);
+      border-color: #66aaff;
+      box-shadow: 0 0 0 0.25rem rgba(102, 170, 255, 0.25);
+    }
+
+    .input-group-text.bg-darkest {
+      background-color: var(--bg-darkest);
+      border: 1px solid var(--bs-border-color);
+      border-right: none;
+    }
+
+    .input-group > :not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .input-group > :not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    /* Table styling */
+    .table-dark {
+      --bs-table-bg: var(--bg-darkest);
+      --bs-table-striped-bg: #1a1a1a;
+      --bs-table-active-bg: rgba(102, 170, 255, 0.15);
+    }
+
+    .table-hover > tbody > tr:hover > * {
+      background-color: rgba(102, 170, 255, 0.05);
+    }
+
+    /* Toast notifications */
+    .toast {
+      background-color: var(--bg-darkest);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Page transitions */
+    .page {
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .terminal-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+      }
+      
+      .terminal-buttons {
+          order: 2;
+      }
+      
+      .terminal-title {
+          order: 1;
+      }
+    }
+
+    /* Code syntax highlighting */
+    .code-snippet {
+      background-color: var(--bg-darkest);
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border: 1px solid var(--bs-border-color);
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    .code-keyword {
+      color: #569cd6;
+    }
+
+    .code-string {
+      color: #ce9178;
+    }
+
+    .code-number {
+      color: #b5cea8;
+    }
+
+    .code-function {
+      color: #dcdcaa;
+    }
+
+    .code-comment {
+      color: #6a9955;
+      font-style: italic;
+    }/* Main application styles */
+
+    /* App container with fade-in animation */
+    .app-container {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    /* Button styles */
+    .btn-primary {
+      background-color: #66aaff;
+      border-color: #66aaff;
+    }
+
+    .btn-primary:hover {
+      background-color: #4d94ff;
+      border-color: #4d94ff;
+    }
+
+    .btn-outline-primary {
+      color: #66aaff;
+      border-color: #66aaff;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: rgba(102, 170, 255, 0.1);
+      color: #66aaff;
+    }
+
+    /* Input focus states */
+    .form-control:focus {
+      background-color: var(--bg-darkest);
+    }
+
+    /* Custom checkbox styling */
+    .form-check-input:checked {
+      background-color: #66aaff;
+      border-color: #66aaff;
+    }
+
+    /* Placeholder text color */
+    .form-control::placeholder {
+      color: #888;
+    }
+
+    /* Card styling */
+    .card {
+      background-color: var(--bg-darker);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background-color: var(--bg-darker);
+      border-bottom: 1px solid var(--bs-border-color);
+      padding: 1rem 1.25rem;
+    }
+
+    /* Nav tabs customization */
+    .nav-tabs .nav-link {
+      color: #aaa;
+      border: 1px solid var(--bs-border-color);
+      border-bottom: none;
+      margin-bottom: -1px;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .nav-tabs .nav-link:hover {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-tabs .nav-link.active {
+      color: #66aaff;
+      background-color: var(--bg-darkest);
+      border-color: var(--bs-border-color);
+      border-bottom-color: var(--bg-darkest);
+    }
+
+    /* Dropdown menu */
+    .dropdown-menu-dark {
+      background-color: var(--bg-darker);
+      border: 1px solid var(--bs-border-color);
+    }
+
+    .dropdown-item {
+      color: var(--bs-body-color);
+    }
+
+    .dropdown-item:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #66aaff;
+    }
+
+    .dropdown-item.text-danger:hover {
+      color: #f87171;
+    }
+
+    /* Disabled links */
+    a.disabled {
+      pointer-events: none;
+      color: #666;
+      text-decoration: none;
+    }
+
+    /* Status badges */
+    .status-badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .status-active {
+      background-color: rgba(25, 135, 84, 0.2);
+      color: #4ade80;
+    }
+
+    .status-inactive {
+      background-color: rgba(220, 53, 69, 0.2);
+      color: #f87171;
+    }
+
+    .status-draft {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: #ffcc00;
+    }
+
+    /* Product image thumbnail */
+    .product-thumbnail {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    /* Action buttons */
+    .action-btn {
+      padding: 4px 8px;
+      font-size: 14px;
+    }
+
+    /* Search bar */
+    #searchProducts {
+      transition: width 0.3s ease;
+    }
+
+    #searchProducts:focus {
+      width: 350px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from {
+          transform: translateY(20px);
+          opacity: 0;
+      }
+      to {
+          transform: translateY(0);
+          opacity: 1;
+      }
+    }
+
+    .slide-in {
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .navbar-brand {
+          font-size: 1.2rem;
+      }
+      
+      .page-content {
+          padding: 1rem;
+      }
+      
+      .terminal-card {
+          margin: 0 -1rem;
+      }
+      
+      #searchProducts {
+          width: 200px !important;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .navbar,
+      .btn,
+      .form-control,
+      .action-btn {
+          display: none !important;
+      }
+      
+      body {
+          background: white;
+          color: black;
+      }
+      
+      .card {
+          border: 1px solid #ccc;
+          box-shadow: none;
+      }
+    }
+
+    /* Accessibility */
+    :focus-visible {
+      outline: 2px solid #66aaff;
+      outline-offset: 2px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Skeleton loading states */
+    .skeleton {
+      background: linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+    }
+
+    @keyframes shimmer {
+      0% {
+          background-position: 200% 0;
+      }
+      100% {
+          background-position: -200% 0;
+      }
+    }
+
+    /* Toast notification */
+    .toast {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    /* Custom tooltips */
+    [data-bs-toggle="tooltip"] {
+      position: relative;
+    }
+
+    .tooltip-inner {
+      background-color: var(--bg-darkest);
+      color: var(--bs-body-color);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--bs-border-color);
+    }
+
+    .bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before,
+    .bs-tooltip-top .tooltip-arrow::before {
+      border-top-color: var(--bg-darkest);
+    }
+
+    .bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow::before,
+    .bs-tooltip-bottom .tooltip-arrow::before {
+      border-bottom-color: var(--bg-darkest);
+    }
+
+    .bs-tooltip-auto[data-popper-placement^="left"] .tooltip-arrow::before,
+    .bs-tooltip-start .tooltip-arrow::before {
+      border-left-color: var(--bg-darkest);
+    }
+
+    .bs-tooltip-auto[data-popper-placement^="right"] .tooltip-arrow::before,
+    .bs-tooltip-end .tooltip-arrow::before {
+      border-right-color: var(--bg-darkest);
+    }
+  </style>
+</head>
+<body class="bg-dark text-light">
+    <!-- Loading Screen -->
+    <!-- <div id="loadingScreen" class="loading-screen">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+        <p class="mt-3">Initializing DevPro Manager...</p>
+    </div> -->
+
+    <!-- Main Container -->
+    <div class="app-container d-none">
+        <!-- Top Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-darker px-4 py-3 shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="assets/icons/logo.svg" alt="DevPro Logo" width="32" height="32" class="me-2">
+                    <span class="fw-bold brand-text">DevPro<span class="text-primary">Manager</span></span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center nav-item-btn" href="#" data-page="home">
+                                <i class="bi bi-house me-1"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center nav-item-btn" href="#" data-page="add-product">
+                                <i class="bi bi-plus-circle me-1"></i> Add Product
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center nav-item-btn" href="#" data-page="view-product">
+                                <i class="bi bi-grid-3x3-gap me-1"></i> View Products
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div class="d-flex align-items-center">
+                        <div class="form-check form-switch me-3">
+                            <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                            <label class="form-check-label small" for="darkModeToggle">Dark Mode</label>
+                        </div>
+                        
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-gear"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="#" id="exportData">Export Data</a></li>
+                                <li><a class="dropdown-item" href="#" id="importData">Import Data</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" id="clearAllData">Clear All Data</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Notification Toast -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <strong class="me-auto">System Notification</strong>
+                    <small>now</small>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></small>
+                </div>
+                <div class="toast-body">
+                    Product added successfully!
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content Area -->
+        <main class="container-fluid py-4 page-content">
+            <!-- Home Page -->
+            <section id="home" class="page active">
+                <div class="row mb-4">
+                    <div class="col">
+                        <h1 class="display-5 fw-bold">Welcome to DevPro Manager</h1>
+                        <p class="lead text-muted">The developer-centric product management system</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card bg-darker border-0 h-100 hover-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="p-3 bg-primary bg-opacity-25 rounded me-3">
+                                        <i class="bi bi-plus-circle fs-3 text-primary"></i>
+                                    </div>
+                                    <h5 class="mb-0">Add Products</h5>
+                                </div>
+                                <p class="text-muted">Create new products with detailed specifications using our intuitive form interface.</p>
+                                <a href="#" class="stretched-link nav-link-btn" data-page="add-product">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card bg-darker border-0 h-100 hover-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="p-3 bg-success bg-opacity-25 rounded me-3">
+                                        <i class="bi bi-grid-3x3-gap fs-3 text-success"></i>
+                                    </div>
+                                    <h5 class="mb-0">View Products</h5>
+                                </div>
+                                <p class="text-muted">Browse, search, and manage all your products in a clean, organized dashboard.</p>
+                                <a href="#" class="stretched-link nav-link-btn" data-page="view-product">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card bg-darker border-0 h-100 hover-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="p-3 bg-info bg-opacity-25 rounded me-3">
+                                        <i class="bi bi-bar-chart fs-3 text-info"></i>
+                                    </div>
+                                    <h5 class="mb-0">Analytics</h5>
+                                </div>
+                                <p class="text-muted">Track product performance, inventory levels, and sales metrics in real-time.</p>
+                                <a href="#" class="stretched-link disabled">Coming Soon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col">
+                        <div class="terminal-card">
+                            <div class="terminal-header">
+                                <div class="terminal-buttons">
+                                    <span class="terminal-btn close"></span>
+                                    <span class="terminal-btn minimize"></span>
+                                    <span class="terminal-btn maximize"></span>
+                                </div>
+                                <div class="terminal-title">devpro-manager ~</div>
+                            </div>
+                            <div class="terminal-body p-3">
+                                <pre class="terminal-content mb-0"><code>$ npm install devpro-manager
+<span class="text-success">+ devpro-manager@2.1.0</span>
+<span class="text-success">added 47 packages in 2.8s</span>
+
+$ devpro init
+<span class="text-info">Initializing DevPro Manager...</span>
+<span class="text-success">✓ Configuration created</span>
+<span class="text-success">✓ Database initialized</span>
+<span class="text-success">✓ Server started on port 3000</span>
+
+$ devpro --help
+<span class="text-info">Available commands:</span>
+  add      Add a new product
+  list     List all products
+  search   Search products
+  export   Export product data</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Product Page -->
+            <section id="add-product" class="page">
+                <div class="row mb-4">
+                    <div class="col">
+                        <h1 class="display-6 fw-bold">Add New Product</h1>
+                        <p class="text-muted">Fill in the details below to create a new product entry</p>
+                    </div>
+                </div>
+                
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card bg-darker border-0">
+                            <div class="card-header bg-darkest border-bottom-0">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#basicInfo">Basic Info</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#advancedOptions">Advanced</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#metadata">Metadata</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <form id="productForm" class="needs-validation" novalidate>
+                                    <div class="tab-content">
+                                        <!-- Basic Info Tab -->
+                                        <div class="tab-pane fade show active" id="basicInfo">
+                                            <div class="row g-3">
+                                                <div class="col-md-12">
+                                                    <label for="productName" class="form-label">Product Name <span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text bg-darkest border-end-0">
+                                                            <i class="bi bi-tag"></i>
+                                                        </span>
+                                                        <input type="text" class="form-control bg-darkest border-start-0" id="productName" required>
+                                                    </div>
+                                                    <div class="invalid-feedback">Please provide a product name.</div>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <label for="productCategory" class="form-label">Category <span class="text-danger">*</span></label>
+                                                    <select class="form-select bg-darkest" id="productCategory" required>
+                                                        <option value="">Select category...</option>
+                                                        <option value="electronics">Electronics</option>
+                                                        <option value="software">Software</option>
+                                                        <option value="hardware">Hardware</option>
+                                                        <option value="accessories">Accessories</option>
+                                                        <option value="services">Services</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">Please select a category.</div>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <label for="productPrice" class="form-label">Price ($) <span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text bg-darkest">$</span>
+                                                        <input type="number" step="0.01" min="0" class="form-control bg-darkest" id="productPrice" required>
+                                                    </div>
+                                                    <div class="invalid-feedback">Please provide a valid price.</div>
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <label for="productDescription" class="form-label">Description</label>
+                                                    <textarea class="form-control bg-darkest" id="productDescription" rows="3" placeholder="Describe your product..."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Advanced Options Tab -->
+                                        <div class="tab-pane fade" id="advancedOptions">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="productStock" class="form-label">Stock Quantity</label>
+                                                    <input type="number" min="0" class="form-control bg-darkest" id="productStock" value="0">
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <label for="sku" class="form-label">SKU (Stock Keeping Unit)</label>
+                                                    <input type="text" class="form-control bg-darkest" id="sku" placeholder="Auto-generated if empty">
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <label for="productImage" class="form-label">Product Image URL</label>
+                                                    <input type="url" class="form-control bg-darkest" id="productImage" placeholder="https://example.com/image.jpg">
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <label class="form-label">Tags</label>
+                                                    <div class="tags-input">
+                                                        <input type="text" class="form-control bg-darkest" id="tagsInput" placeholder="Press Enter to add tags">
+                                                        <div id="tagsContainer" class="mt-2 d-flex flex-wrap gap-2"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Metadata Tab -->
+                                        <div class="tab-pane fade" id="metadata">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="weight" class="form-label">Weight (kg)</label>
+                                                    <input type="number" step="0.01" min="0" class="form-control bg-darkest" id="weight">
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <label for="dimensions" class="form-label">Dimensions (W×H×D cm)</label>
+                                                    <input type="text" class="form-control bg-darkest" id="dimensions" placeholder="e.g., 10x15x5">
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <label for="manufacturer" class="form-label">Manufacturer</label>
+                                                    <input type="text" class="form-control bg-darkest" id="manufacturer">
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <label class="form-label">Status</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="status" id="statusActive" value="active" checked>
+                                                        <label class="form-check-label" for="statusActive">Active</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="status" id="statusInactive" value="inactive">
+                                                        <label class="form-check-label" for="statusInactive">Inactive</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="status" id="statusDraft" value="draft">
+                                                        <label class="form-check-label" for="statusDraft">Draft</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex gap-3 mt-4">
+                                        <button type="submit" class="btn btn-primary px-4">
+                                            <i class="bi bi-save me-2"></i>Save Product
+                                        </button>
+                                        <button type="reset" class="btn btn-outline-secondary px-4">
+                                            <i class="bi bi-arrow-counterclockwise me-2"></i>Reset
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger ms-auto px-4" id="deleteDraft">
+                                            <i class="bi bi-trash me-2"></i>Delete Draft
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View Products Page -->
+            <section id="view-product" class="page">
+                <div class="row mb-4">
+                    <div class="col">
+                        <h1 class="display-6 fw-bold">Products Dashboard</h1>
+                        <p class="text-muted">Manage and monitor all your products</p>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group" style="width: 300px;">
+                            <span class="input-group-text bg-darkest border-end-0">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" class="form-control bg-darkest border-start-0" id="searchProducts" placeholder="Search products...">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="card bg-darkest border-0">
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                        <h3 id="totalProducts" class="mb-0">0</h3>
+                                        <p class="text-muted mb-0">Total Products</p>
+                                    </div>
+                                    <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                        <h3 id="totalValue" class="mb-0">$0.00</h3>
+                                        <p class="text-muted mb-0">Total Value</p>
+                                    </div>
+                                    <div class="col-md-3 col-6 mb-3 mb-md-0">
+                                        <h3 id="inStock" class="mb-0">0</h3>
+                                        <p class="text-muted mb-0">In Stock</p>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <h3 id="lowStock" class="mb-0">0</h3>
+                                        <p class="text-muted mb-0">Low Stock</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Stock</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Added</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTableBody">
+                                    <tr id="noProductsRow">
+                                        <td colspan="8" class="text-center py-5">
+                                            <div class="py-5">
+                                                <i class="bi bi-inbox fs-1 text-muted mb-3 d-block"></i>
+                                                <h4>No products found</h4>
+                                                <p class="text-muted">Add your first product to get started.</p>
+                                                <button class="btn btn-primary mt-3 nav-link-btn" data-page="add-product">
+                                                    <i class="bi bi-plus-circle me-2"></i>Add Product
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-darker">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Product Data</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="importFile" class="form-label">Upload JSON file</label>
+                        <input class="form-control bg-darkest" type="file" id="importFile" accept=".json">
+                        <div class="form-text text-muted">Upload a previously exported product data file.</div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="mergeData" checked>
+                        <label class="form-check-label" for="mergeData">
+                            Merge with existing data (uncheck to replace)
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmImport">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-darker">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalTitle">Confirm Action</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="confirmationModalBody">
+                    Are you sure you want to perform this action?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmAction">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS Files -->
+    <script src="js/productManager.js"></script>
+    <script src="js/uiComponents.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
