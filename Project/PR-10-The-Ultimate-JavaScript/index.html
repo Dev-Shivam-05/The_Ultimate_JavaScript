@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atmosphere | Modern Weather App</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --glass-bg: rgba(255, 255, 255, 0.25);
+        --glass-border: rgba(255, 255, 255, 0.3);
+        --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        --text-color: #333;
+        --card-bg: rgba(255, 255, 255, 0.6);
+        --suggestion-bg: #fff;
+        --suggestion-hover: #f0f0f0;
+      }
+
+      [data-theme="dark"] {
+        --primary-gradient: linear-gradient(
+          135deg,
+          #0f2027 0%,
+          #203a43 50%,
+          #2c5364 100%
+        );
+        --glass-bg: rgba(0, 0, 0, 0.4);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-color: #f0f0f0;
+        --card-bg: rgba(0, 0, 0, 0.5);
+        --suggestion-bg: #2c3e50;
+        --suggestion-hover: #34495e;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--primary-gradient);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        min-height: 100vh;
+        color: var(--text-color);
+        transition: background 0.5s ease, color 0.3s ease;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Dynamic Background Overlay for Weather Images */
+      #bg-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 1s ease;
+        filter: blur(8px);
+      }
+
+      #bg-image.active {
+        opacity: 0.4;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Glassmorphism Utils */
+      .glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+      }
+
+      .glass-card {
+        background: var(--card-bg);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Navbar */
+      .navbar {
+        padding: 1rem 0;
+      }
+
+      .theme-toggle {
+        cursor: pointer;
+        font-size: 1.5rem;
+        transition: transform 0.3s;
+      }
+      .theme-toggle:hover {
+        transform: rotate(15deg) scale(1.1);
+      }
+
+      /* Search Section */
+      .search-container {
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form-control {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        color: var(--text-color);
+        border-radius: 30px;
+        padding: 0.8rem 1.5rem;
+      }
+
+      .form-control::placeholder {
+        color: var(--text-color);
+        opacity: 0.7;
+      }
+
+      .form-control:focus {
+        background: var(--glass-bg);
+        color: var(--text-color);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .search-btn {
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+      }
+
+      /* Autocomplete */
+      .autocomplete-items {
+        position: absolute;
+        border: none;
+        z-index: 99;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin-top: 5px;
+        border-radius: 15px;
+        overflow: hidden;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: var(--suggestion-bg);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .autocomplete-items div {
+        padding: 10px 20px;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      .autocomplete-items div:hover {
+        background-color: var(--suggestion-hover);
+      }
+
+      .autocomplete-active {
+        background-color: var(--suggestion-hover) !important;
+      }
+
+      /* Recent History */
+      .history-chip {
+        display: inline-block;
+        padding: 5px 15px;
+        margin: 5px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 1px solid transparent;
+      }
+
+      .history-chip:hover {
+        background: rgba(255, 255, 255, 0.4);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Weather Main */
+      .weather-main-icon {
+        font-size: 6rem;
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      .temp-display {
+        font-size: 4.5rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      /* Weather Details */
+      .detail-item {
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .detail-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Forecast */
+      .forecast-card {
+        text-align: center;
+        padding: 1rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        margin-bottom: 1rem;
+      }
+
+      /* Loading Spinner */
+      .loader {
+        display: none;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+        border-top: 5px solid #fff;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      .rotate-slow {
+        animation: spin 4s linear infinite;
+        display: inline-block;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Alert Box */
+      .alert-box {
+        display: none;
+        padding: 10px 20px;
+        border-left: 5px solid #ff4757;
+        background: rgba(255, 71, 87, 0.2);
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Animations */
+      .fade-in {
+        animation: fadeIn 0.8s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Dynamic Background Image -->
+    <img id="bg-image" alt="Weather Background" src="" />
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container d-flex justify-content-between align-items-center">
+        <a
+          class="navbar-brand d-flex align-items-center fw-bold fs-3"
+          href="#"
+          style="color: var(--text-color)"
+        >
+          <i class="fas fa-cloud-sun-rain me-2"></i> Atmosphere
+        </a>
+        <div class="d-flex align-items-center gap-3">
+          <button
+            id="location-btn"
+            class="btn btn-outline-light rounded-circle"
+            data-bs-toggle="tooltip"
+            title="Use Current Location"
+          >
+            <i class="fas fa-location-arrow"></i>
+          </button>
+          <div class="theme-toggle" id="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <!-- Alerts -->
+      <div id="alert-container" class="alert-box glass">
+        <strong><i class="fas fa-exclamation-triangle"></i> Alert:</strong>
+        <span id="alert-text">Heavy Rain expected in the evening.</span>
+      </div>
+
+      <!-- Search Section -->
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="search-container d-flex gap-2">
+            <div class="dropdown w-100 position-relative">
+              <input
+                type="text"
+                id="city-input"
+                class="form-control"
+                placeholder="Search for a city..."
+                autocomplete="off"
+              />
+              <div
+                id="autocomplete-list"
+                class="autocomplete-items glass"
+              ></div>
+            </div>
+
+            <!-- Dropdown for 50 Cities -->
+            <div class="dropdown">
+              <button
+                class="btn btn-light glass rounded-circle"
+                style="width: 45px; height: 45px"
+                type="button"
+                id="citiesDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-list"></i>
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-end glass"
+                style="max-height: 300px; overflow-y: auto"
+                id="city-list-dropdown"
+              >
+                <!-- Cities injected by JS -->
+              </ul>
+            </div>
+
+            <button id="search-btn" class="btn btn-light search-btn glass">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+
+          <!-- Recent History -->
+          <div id="search-history" class="text-center mt-3">
+            <!-- Chips injected by JS -->
+          </div>
+
+          <!-- Loading -->
+          <div id="loader" class="loader"></div>
+
+          <!-- Error Message -->
+          <div
+            id="error-msg"
+            class="text-center mt-3 text-danger fw-bold"
+            style="display: none"
+          >
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="error-text">City not found!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weather Content (Initially Hidden) -->
+      <div id="weather-result" class="row mt-5 fade-in" style="display: none">
+        <!-- Main Card -->
+        <div class="col-lg-6 mb-4">
+          <div
+            class="glass p-4 h-100 glass-card d-flex flex-column justify-content-center align-items-center text-center position-relative"
+          >
+            <div class="position-absolute top-0 end-0 p-3">
+              <span
+                id="current-date"
+                class="badge bg-light text-dark opacity-75"
+              ></span>
+            </div>
+            <h2 id="city-name" class="fw-bold mb-0">London, GB</h2>
+            <p id="weather-desc" class="text-capitalize fs-5 mb-3">
+              Broken Clouds
+            </p>
+
+            <div id="weather-icon" class="weather-main-icon my-3">
+              <i class="fas fa-cloud"></i>
+            </div>
+
+            <div class="d-flex align-items-start justify-content-center">
+              <h1 id="temp-val" class="temp-display">15</h1>
+              <span class="fs-2 mt-2">°C</span>
+            </div>
+
+            <div class="mt-4 p-3 glass rounded w-100">
+              <i class="fas fa-lightbulb text-warning me-2"></i>
+              <span id="recommendation-text">Perfect weather for a walk!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details & Forecast -->
+        <div class="col-lg-6">
+          <!-- Grid Details -->
+          <div class="row g-3 mb-4">
+            <div class="col-6">
+              <div class="glass glass-card p-3 detail-item">
+                <div class="detail-icon text-info">
+                  <i class="fas fa-tint"></i>
+                </div>
+                <small>Humidity</small>
+                <h4 id="humidity-val" class="fw-bold">72%</h4>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="glass glass-card p-3 detail-item">
+                <div class="detail-icon text-secondary">
+                  <i class="fas fa-wind rotate-slow"></i>
+                </div>
+                <small>Wind Speed</small>
+                <h4 id="wind-val" class="fw-bold">5 km/h</h4>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="glass glass-card p-3 detail-item">
+                <div class="detail-icon text-warning">
+                  <i class="fas fa-sun"></i>
+                </div>
+                <small>Sunrise</small>
+                <h4 id="sunrise-val" class="fw-bold">06:12 AM</h4>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="glass glass-card p-3 detail-item">
+                <div class="detail-icon text-danger">
+                  <i class="fas fa-moon"></i>
+                </div>
+                <small>Sunset</small>
+                <h4 id="sunset-val" class="fw-bold">08:45 PM</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Forecast -->
+          <h5 class="fw-bold mb-3">
+            <i class="fas fa-calendar-alt me-2"></i> 3-Day Forecast
+          </h5>
+          <div id="forecast-container">
+            <!-- Forecast Items injected by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

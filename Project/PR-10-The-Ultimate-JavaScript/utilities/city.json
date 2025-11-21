@@ -1,0 +1,778 @@
+{
+  "countries": [
+    {
+      "country_name": "Afghanistan",
+      "country_code": "AF",
+      "cities": [
+        {
+          "city_name": "Kabul",
+          "state_or_province": "Kabul",
+          "pincode": "1001"
+        },
+        {
+          "city_name": "Herat",
+          "state_or_province": "Herat",
+          "pincode": "3001"
+        },
+        {
+          "city_name": "Kandahar",
+          "state_or_province": "Kandahar",
+          "pincode": "3801"
+        },
+        {
+          "city_name": "Mazar-i-Sharif",
+          "state_or_province": "Balkh",
+          "pincode": "1701"
+        },
+        {
+          "city_name": "Jalalabad",
+          "state_or_province": "Nangarhar",
+          "pincode": "2601"
+        },
+        {
+          "city_name": "Kunduz",
+          "state_or_province": "Kunduz",
+          "pincode": "3501"
+        },
+        {
+          "city_name": "Ghazni",
+          "state_or_province": "Ghazni",
+          "pincode": "2301"
+        },
+        {
+          "city_name": "Lashkargah",
+          "state_or_province": "Helmand",
+          "pincode": "3901"
+        },
+        {
+          "city_name": "Taloqan",
+          "state_or_province": "Takhar",
+          "pincode": "3401"
+        },
+        {
+          "city_name": "Puli Khumri",
+          "state_or_province": "Baghlan",
+          "pincode": "3601"
+        },
+        {
+          "city_name": "Khost",
+          "state_or_province": "Khost",
+          "pincode": "2501"
+        },
+        {
+          "city_name": "Charikar",
+          "state_or_province": "Parwan",
+          "pincode": "1101"
+        },
+        {
+          "city_name": "Sheberghan",
+          "state_or_province": "Jowzjan",
+          "pincode": "1901"
+        },
+        {
+          "city_name": "Sar-e Pol",
+          "state_or_province": "Sar-e Pol",
+          "pincode": "2101"
+        },
+        {
+          "city_name": "Farah",
+          "state_or_province": "Farah",
+          "pincode": "3101"
+        },
+        {
+          "city_name": "Zaranj",
+          "state_or_province": "Nimruz",
+          "pincode": "4301"
+        },
+        {
+          "city_name": "Fayzabad",
+          "state_or_province": "Badakhshan",
+          "pincode": "3401"
+        },
+        {
+          "city_name": "Gardez",
+          "state_or_province": "Paktia",
+          "pincode": "2201"
+        },
+        {
+          "city_name": "Bamyan",
+          "state_or_province": "Bamyan",
+          "pincode": "1601"
+        },
+        {
+          "city_name": "Maymana",
+          "state_or_province": "Faryab",
+          "pincode": "1801"
+        }
+      ]
+    },
+    {
+      "country_name": "Brazil",
+      "country_code": "BR",
+      "cities": [
+        {
+          "city_name": "São Paulo",
+          "state_or_province": "São Paulo",
+          "pincode": "01000-000"
+        },
+        {
+          "city_name": "Rio de Janeiro",
+          "state_or_province": "Rio de Janeiro",
+          "pincode": "20000-000"
+        },
+        {
+          "city_name": "Brasília",
+          "state_or_province": "Distrito Federal",
+          "pincode": "70000-000"
+        },
+        {
+          "city_name": "Salvador",
+          "state_or_province": "Bahia",
+          "pincode": "40000-000"
+        },
+        {
+          "city_name": "Fortaleza",
+          "state_or_province": "Ceará",
+          "pincode": "60000-000"
+        },
+        {
+          "city_name": "Belo Horizonte",
+          "state_or_province": "Minas Gerais",
+          "pincode": "30000-000"
+        },
+        {
+          "city_name": "Manaus",
+          "state_or_province": "Amazonas",
+          "pincode": "69000-000"
+        },
+        {
+          "city_name": "Curitiba",
+          "state_or_province": "Paraná",
+          "pincode": "80000-000"
+        },
+        {
+          "city_name": "Recife",
+          "state_or_province": "Pernambuco",
+          "pincode": "50000-000"
+        },
+        {
+          "city_name": "Goiânia",
+          "state_or_province": "Goiás",
+          "pincode": "74000-000"
+        },
+        {
+          "city_name": "Belém",
+          "state_or_province": "Pará",
+          "pincode": "66000-000"
+        },
+        {
+          "city_name": "Porto Alegre",
+          "state_or_province": "Rio Grande do Sul",
+          "pincode": "90000-000"
+        },
+        {
+          "city_name": "Guarulhos",
+          "state_or_province": "São Paulo",
+          "pincode": "07000-000"
+        },
+        {
+          "city_name": "Campinas",
+          "state_or_province": "São Paulo",
+          "pincode": "13000-000"
+        },
+        {
+          "city_name": "São Luís",
+          "state_or_province": "Maranhão",
+          "pincode": "65000-000"
+        },
+        {
+          "city_name": "São Gonçalo",
+          "state_or_province": "Rio de Janeiro",
+          "pincode": "24400-000"
+        },
+        {
+          "city_name": "Maceió",
+          "state_or_province": "Alagoas",
+          "pincode": "57000-000"
+        },
+        {
+          "city_name": "Duque de Caxias",
+          "state_or_province": "Rio de Janeiro",
+          "pincode": "25000-000"
+        },
+        {
+          "city_name": "Natal",
+          "state_or_province": "Rio Grande do Norte",
+          "pincode": "59000-000"
+        },
+        {
+          "city_name": "Campo Grande",
+          "state_or_province": "Mato Grosso do Sul",
+          "pincode": "79000-000"
+        },
+        {
+          "city_name": "Teresina",
+          "state_or_province": "Piauí",
+          "pincode": "64000-000"
+        },
+        {
+          "city_name": "São Bernardo do Campo",
+          "state_or_province": "São Paulo",
+          "pincode": "09700-000"
+        },
+        {
+          "city_name": "João Pessoa",
+          "state_or_province": "Paraíba",
+          "pincode": "58000-000"
+        },
+        {
+          "city_name": "Nova Iguaçu",
+          "state_or_province": "Rio de Janeiro",
+          "pincode": "26000-000"
+        },
+        {
+          "city_name": "Santo André",
+          "state_or_province": "São Paulo",
+          "pincode": "09000-000"
+        },
+        {
+          "city_name": "São José dos Campos",
+          "state_or_province": "São Paulo",
+          "pincode": "12200-000"
+        },
+        {
+          "city_name": "Jaboatão dos Guararapes",
+          "state_or_province": "Pernambuco",
+          "pincode": "54000-000"
+        },
+        {
+          "city_name": "Ribeirão Preto",
+          "state_or_province": "São Paulo",
+          "pincode": "14000-000"
+        },
+        {
+          "city_name": "Uberlândia",
+          "state_or_province": "Minas Gerais",
+          "pincode": "38400-000"
+        },
+        {
+          "city_name": "Contagem",
+          "state_or_province": "Minas Gerais",
+          "pincode": "32000-000"
+        },
+        {
+          "city_name": "Aracaju",
+          "state_or_province": "Sergipe",
+          "pincode": "49000-000"
+        },
+        {
+          "city_name": "Feira de Santana",
+          "state_or_province": "Bahia",
+          "pincode": "44000-000"
+        },
+        {
+          "city_name": "Sorocaba",
+          "state_or_province": "São Paulo",
+          "pincode": "18000-000"
+        },
+        {
+          "city_name": "Joinville",
+          "state_or_province": "Santa Catarina",
+          "pincode": "89200-000"
+        },
+        {
+          "city_name": "Juiz de Fora",
+          "state_or_province": "Minas Gerais",
+          "pincode": "36000-000"
+        },
+        {
+          "city_name": "Londrina",
+          "state_or_province": "Paraná",
+          "pincode": "86000-000"
+        },
+        {
+          "city_name": "Aparecida de Goiânia",
+          "state_or_province": "Goiás",
+          "pincode": "74900-000"
+        },
+        {
+          "city_name": "Porto Velho",
+          "state_or_province": "Rondônia",
+          "pincode": "76800-000"
+        },
+        {
+          "city_name": "Caxias do Sul",
+          "state_or_province": "Rio Grande do Sul",
+          "pincode": "95000-000"
+        },
+        {
+          "city_name": "Florianópolis",
+          "state_or_province": "Santa Catarina",
+          "pincode": "88000-000"
+        }
+      ]
+    },
+    {
+      "country_name": "China",
+      "country_code": "CN",
+      "cities": [
+        {
+          "city_name": "Shanghai",
+          "state_or_province": "Shanghai",
+          "pincode": "200000"
+        },
+        {
+          "city_name": "Beijing",
+          "state_or_province": "Beijing",
+          "pincode": "100000"
+        },
+        {
+          "city_name": "Chongqing",
+          "state_or_province": "Chongqing",
+          "pincode": "400000"
+        },
+        {
+          "city_name": "Tianjin",
+          "state_or_province": "Tianjin",
+          "pincode": "300000"
+        },
+        {
+          "city_name": "Guangzhou",
+          "state_or_province": "Guangdong",
+          "pincode": "510000"
+        },
+        {
+          "city_name": "Shenzhen",
+          "state_or_province": "Guangdong",
+          "pincode": "518000"
+        },
+        {
+          "city_name": "Chengdu",
+          "state_or_province": "Sichuan",
+          "pincode": "610000"
+        },
+        {
+          "city_name": "Nanjing",
+          "state_or_province": "Jiangsu",
+          "pincode": "210000"
+        },
+        {
+          "city_name": "Wuhan",
+          "state_or_province": "Hubei",
+          "pincode": "430000"
+        },
+        {
+          "city_name": "Hangzhou",
+          "state_or_province": "Zhejiang",
+          "pincode": "310000"
+        },
+        {
+          "city_name": "Xi'an",
+          "state_or_province": "Shaanxi",
+          "pincode": "710000"
+        },
+        {
+          "city_name": "Qingdao",
+          "state_or_province": "Shandong",
+          "pincode": "266000"
+        },
+        {
+          "city_name": "Dalian",
+          "state_or_province": "Liaoning",
+          "pincode": "116000"
+        },
+        {
+          "city_name": "Shenyang",
+          "state_or_province": "Liaoning",
+          "pincode": "110000"
+        },
+        {
+          "city_name": "Harbin",
+          "state_or_province": "Heilongjiang",
+          "pincode": "150000"
+        },
+        {
+          "city_name": "Jinan",
+          "state_or_province": "Shandong",
+          "pincode": "250000"
+        },
+        {
+          "city_name": "Zhengzhou",
+          "state_or_province": "Henan",
+          "pincode": "450000"
+        },
+        {
+          "city_name": "Changsha",
+          "state_or_province": "Hunan",
+          "pincode": "410000"
+        },
+        {
+          "city_name": "Kunming",
+          "state_or_province": "Yunnan",
+          "pincode": "650000"
+        },
+        {
+          "city_name": "Fuzhou",
+          "state_or_province": "Fujian",
+          "pincode": "350000"
+        },
+        {
+          "city_name": "Hefei",
+          "state_or_province": "Anhui",
+          "pincode": "230000"
+        },
+        {
+          "city_name": "Nanning",
+          "state_or_province": "Guangxi",
+          "pincode": "530000"
+        },
+        {
+          "city_name": "Urumqi",
+          "state_or_province": "Xinjiang",
+          "pincode": "830000"
+        },
+        {
+          "city_name": "Lanzhou",
+          "state_or_province": "Gansu",
+          "pincode": "730000"
+        },
+        {
+          "city_name": "Guiyang",
+          "state_or_province": "Guizhou",
+          "pincode": "550000"
+        },
+        {
+          "city_name": "Taiyuan",
+          "state_or_province": "Shanxi",
+          "pincode": "030000"
+        },
+        {
+          "city_name": "Shijiazhuang",
+          "state_or_province": "Hebei",
+          "pincode": "050000"
+        },
+        {
+          "city_name": "Nanchang",
+          "state_or_province": "Jiangxi",
+          "pincode": "330000"
+        },
+        {
+          "city_name": "Changchun",
+          "state_or_province": "Jilin",
+          "pincode": "130000"
+        },
+        {
+          "city_name": "Xiamen",
+          "state_or_province": "Fujian",
+          "pincode": "361000"
+        },
+        {
+          "city_name": "Ningbo",
+          "state_or_province": "Zhejiang",
+          "pincode": "315000"
+        },
+        {
+          "city_name": "Suzhou",
+          "state_or_province": "Jiangsu",
+          "pincode": "215000"
+        },
+        {
+          "city_name": "Wuxi",
+          "state_or_province": "Jiangsu",
+          "pincode": "214000"
+        },
+        {
+          "city_name": "Dongguan",
+          "state_or_province": "Guangdong",
+          "pincode": "523000"
+        },
+        {
+          "city_name": "Foshan",
+          "state_or_province": "Guangdong",
+          "pincode": "528000"
+        },
+        {
+          "city_name": "Hohhot",
+          "state_or_province": "Inner Mongolia",
+          "pincode": "010000"
+        },
+        {
+          "city_name": "Xining",
+          "state_or_province": "Qinghai",
+          "pincode": "810000"
+        },
+        {
+          "city_name": "Yinchuan",
+          "state_or_province": "Ningxia",
+          "pincode": "750000"
+        },
+        {
+          "city_name": "Lhasa",
+          "state_or_province": "Tibet",
+          "pincode": "850000"
+        },
+        {
+          "city_name": "Haikou",
+          "state_or_province": "Hainan",
+          "pincode": "570000"
+        }
+      ]
+    },
+    {
+      "country_name": "United States",
+      "country_code": "US",
+      "cities": [
+        {
+          "city_name": "New York",
+          "state_or_province": "New York",
+          "pincode": "10001"
+        },
+        {
+          "city_name": "Los Angeles",
+          "state_or_province": "California",
+          "pincode": "90001"
+        },
+        {
+          "city_name": "Chicago",
+          "state_or_province": "Illinois",
+          "pincode": "60601"
+        },
+        {
+          "city_name": "Houston",
+          "state_or_province": "Texas",
+          "pincode": "77001"
+        },
+        {
+          "city_name": "Phoenix",
+          "state_or_province": "Arizona",
+          "pincode": "85001"
+        },
+        {
+          "city_name": "Philadelphia",
+          "state_or_province": "Pennsylvania",
+          "pincode": "19019"
+        },
+        {
+          "city_name": "San Antonio",
+          "state_or_province": "Texas",
+          "pincode": "78201"
+        },
+        {
+          "city_name": "San Diego",
+          "state_or_province": "California",
+          "pincode": "92101"
+        },
+        {
+          "city_name": "Dallas",
+          "state_or_province": "Texas",
+          "pincode": "75201"
+        },
+        {
+          "city_name": "San Jose",
+          "state_or_province": "California",
+          "pincode": "95101"
+        },
+        {
+          "city_name": "Austin",
+          "state_or_province": "Texas",
+          "pincode": "73301"
+        },
+        {
+          "city_name": "Jacksonville",
+          "state_or_province": "Florida",
+          "pincode": "32099"
+        },
+        {
+          "city_name": "Fort Worth",
+          "state_or_province": "Texas",
+          "pincode": "76101"
+        },
+        {
+          "city_name": "Columbus",
+          "state_or_province": "Ohio",
+          "pincode": "43085"
+        },
+        {
+          "city_name": "Charlotte",
+          "state_or_province": "North Carolina",
+          "pincode": "28201"
+        },
+        {
+          "city_name": "San Francisco",
+          "state_or_province": "California",
+          "pincode": "94102"
+        },
+        {
+          "city_name": "Indianapolis",
+          "state_or_province": "Indiana",
+          "pincode": "46201"
+        },
+        {
+          "city_name": "Seattle",
+          "state_or_province": "Washington",
+          "pincode": "98101"
+        },
+        {
+          "city_name": "Denver",
+          "state_or_province": "Colorado",
+          "pincode": "80201"
+        },
+        {
+          "city_name": "Washington",
+          "state_or_province": "District of Columbia",
+          "pincode": "20001"
+        },
+        {
+          "city_name": "Boston",
+          "state_or_province": "Massachusetts",
+          "pincode": "02101"
+        },
+        {
+          "city_name": "El Paso",
+          "state_or_province": "Texas",
+          "pincode": "79901"
+        },
+        {
+          "city_name": "Nashville",
+          "state_or_province": "Tennessee",
+          "pincode": "37201"
+        },
+        {
+          "city_name": "Detroit",
+          "state_or_province": "Michigan",
+          "pincode": "48201"
+        },
+        {
+          "city_name": "Oklahoma City",
+          "state_or_province": "Oklahoma",
+          "pincode": "73101"
+        },
+        {
+          "city_name": "Portland",
+          "state_or_province": "Oregon",
+          "pincode": "97201"
+        },
+        {
+          "city_name": "Las Vegas",
+          "state_or_province": "Nevada",
+          "pincode": "89101"
+        },
+        {
+          "city_name": "Memphis",
+          "state_or_province": "Tennessee",
+          "pincode": "38101"
+        },
+        {
+          "city_name": "Louisville",
+          "state_or_province": "Kentucky",
+          "pincode": "40201"
+        },
+        {
+          "city_name": "Baltimore",
+          "state_or_province": "Maryland",
+          "pincode": "21201"
+        },
+        {
+          "city_name": "Milwaukee",
+          "state_or_province": "Wisconsin",
+          "pincode": "53201"
+        },
+        {
+          "city_name": "Albuquerque",
+          "state_or_province": "New Mexico",
+          "pincode": "87101"
+        },
+        {
+          "city_name": "Tucson",
+          "state_or_province": "Arizona",
+          "pincode": "85701"
+        },
+        {
+          "city_name": "Fresno",
+          "state_or_province": "California",
+          "pincode": "93650"
+        },
+        {
+          "city_name": "Sacramento",
+          "state_or_province": "California",
+          "pincode": "94203"
+        },
+        {
+          "city_name": "Kansas City",
+          "state_or_province": "Missouri",
+          "pincode": "64101"
+        },
+        {
+          "city_name": "Mesa",
+          "state_or_province": "Arizona",
+          "pincode": "85201"
+        },
+        {
+          "city_name": "Atlanta",
+          "state_or_province": "Georgia",
+          "pincode": "30301"
+        },
+        {
+          "city_name": "Omaha",
+          "state_or_province": "Nebraska",
+          "pincode": "68101"
+        },
+        {
+          "city_name": "Colorado Springs",
+          "state_or_province": "Colorado",
+          "pincode": "80901"
+        },
+        {
+          "city_name": "Raleigh",
+          "state_or_province": "North Carolina",
+          "pincode": "27601"
+        },
+        {
+          "city_name": "Miami",
+          "state_or_province": "Florida",
+          "pincode": "33101"
+        },
+        {
+          "city_name": "Long Beach",
+          "state_or_province": "California",
+          "pincode": "90801"
+        },
+        {
+          "city_name": "Virginia Beach",
+          "state_or_province": "Virginia",
+          "pincode": "23450"
+        },
+        {
+          "city_name": "Oakland",
+          "state_or_province": "California",
+          "pincode": "94601"
+        },
+        {
+          "city_name": "Minneapolis",
+          "state_or_province": "Minnesota",
+          "pincode": "55401"
+        },
+        {
+          "city_name": "Tulsa",
+          "state_or_province": "Oklahoma",
+          "pincode": "74101"
+        },
+        {
+          "city_name": "Arlington",
+          "state_or_province": "Texas",
+          "pincode": "76001"
+        },
+        {
+          "city_name": "Tampa",
+          "state_or_province": "Florida",
+          "pincode": "33601"
+        },
+        {
+          "city_name": "New Orleans",
+          "state_or_province": "Louisiana",
+          "pincode": "70112"
+        }
+      ]
+    }
+  ]
+}
