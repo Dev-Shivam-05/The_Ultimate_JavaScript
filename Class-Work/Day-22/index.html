@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cursor Effect</title>
+    
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <style>
+        /* ========================================
+           CUSTOM CURSOR STYLES
+           ======================================== */
+        
+        /* Hide default cursor on all elements */
+        * {
+            cursor: none !important;
+        }
+        
+        /* Main cursor dot - the inner circle */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease-out, 
+                        background 0.3s ease,
+                        width 0.3s ease,
+                        height 0.3s ease;
+        }
+        
+        /* Outer ring cursor - follows with delay */
+        .cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease-out,
+                        border-color 0.3s ease,
+                        width 0.3s ease,
+                        height 0.3s ease,
+                        background 0.3s ease;
+        }
+        
+        /* Hover state for clickable elements */
+        .cursor-dot.hovering {
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .cursor-ring.hovering {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(240, 147, 251, 0.6);
+            background: rgba(240, 147, 251, 0.1);
+        }
+        
+        /* Click animation state */
+        .cursor-dot.clicking {
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+        
+        .cursor-ring.clicking {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: rgba(102, 126, 234, 0.8);
+        }
+        
+        /* Ripple effect element */
+        .cursor-ripple {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99997;
+            border-radius: 50%;
+            border: 2px solid rgba(102, 126, 234, 0.6);
+            animation: ripple-animation 0.6s ease-out forwards;
+            transform: translate(-50%, -50%);
+        }
+        
+        @keyframes ripple-animation {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 100px;
+                height: 100px;
+                opacity: 0;
+            }
+        }
+        
+        /* Glow effect on hover */
+        .cursor-dot.hovering::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(240, 147, 251, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse-glow 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        }
+        
+        /* ========================================
+           DEMO PAGE STYLES
+           ======================================== */
+        
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .interactive-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+    
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col items-center justify-center p-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">
+                <span class="gradient-text">Custom Cursor</span>
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Move your mouse around to see the smooth trailing effect. 
+                Hover over interactive elements and click anywhere!
+            </p>
+        </header>
+        
+        <!-- Interactive Cards -->
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl w-full mb-16">
+            
+            <div class="interactive-card bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                <div class="w-14 h-14 bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Smooth Animation</h3>
+                <p class="text-gray-400">Lerp-based movement creates fluid, natural cursor following.</p>
+            </div>
+            
+            <div class="interactive-card bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                <div class="w-14 h-14 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Click Effects</h3>
+                <p class="text-gray-400">Satisfying ripple and pulse animations on every click.</p>
+            </div>
+            
+            <div class="interactive-card bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Hover States</h3>
+                <p class="text-gray-400">Dynamic cursor changes when hovering clickable elements.</p>
+            </div>
+        </div>
+        
+        <!-- Interactive Buttons -->
+        <div class="flex flex-wrap gap-4 justify-center mb-16">
+            <button class="px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 rounded-full font-semibold hover:from-violet-500 hover:to-purple-500 transition-all duration-300 shadow-lg shadow-purple-500/30">
+                Primary Button
+            </button>
+            <button class="px-8 py-4 bg-white/10 backdrop-blur border border-white/30 rounded-full font-semibold hover:bg-white/20 transition-all duration-300">
+                Secondary Button
+            </button>
+            <a href="#" class="px-8 py-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-full font-semibold hover:from-pink-500 hover:to-rose-500 transition-all duration-300 shadow-lg shadow-pink-500/30">
+                Link Button
+            </a>
+        </div>
+        
+        <!-- Customization Guide -->
+        <div class="max-w-3xl w-full bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+            <h2 class="text-2xl font-bold mb-4 gradient-text">Customization Guide</h2>
+            <div class="space-y-4 text-gray-300">
+                <p><strong class="text-white">Colors:</strong> Modify the gradient values in <code class="bg-white/10 px-2 py-1 rounded">.cursor-dot</code> and <code class="bg-white/10 px-2 py-1 rounded">.cursor-ring</code></p>
+                <p><strong class="text-white">Size:</strong> Adjust <code class="bg-white/10 px-2 py-1 rounded">width</code> and <code class="bg-white/10 px-2 py-1 rounded">height</code> values in CSS</p>
+                <p><strong class="text-white">Speed:</strong> Change <code class="bg-white/10 px-2 py-1 rounded">lerpFactor</code> in JavaScript (0.1 = slow, 0.3 = fast)</p>
+                <p><strong class="text-white">Animation:</strong> Modify transition durations and keyframe animations</p>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- jQuery Custom Cursor Script -->
+    <script>
+        $(document).ready(function() {
+            
+            // ========================================
+            // CONFIGURATION - Easy to customize!
+            // ========================================
+            const config = {
+                // Lerp factor: 0.1 (slow/smooth) to 0.3 (fast/snappy)
+                lerpFactor: 0.15,
+                
+                // Animation frame rate
+                fps: 60,
+                
+                // Selectors for clickable elements
+                clickableSelectors: 'a, button, input, textarea, select, [role="button"], .clickable'
+            };
+            
+            // ========================================
+            // CURSOR ELEMENTS
+            // ========================================
+            const $cursorDot = $('.cursor-dot');
+            const $cursorRing = $('.cursor-ring');
+            
+            // ========================================
+            // POSITION TRACKING
+            // ========================================
+            // Mouse position (target)
+            let mouseX = 0;
+            let mouseY = 0;
+            
+            // Cursor dot position (instant follow)
+            let dotX = 0;
+            let dotY = 0;
+            
+            // Cursor ring position (delayed follow)
+            let ringX = 0;
+            let ringY = 0;
+            
+            // ========================================
+            // LERP FUNCTION
+            // Linear interpolation for smooth movement
+            // ========================================
+            function lerp(start, end, factor) {
+                return start + (end - start) * factor;
+            }
+            
+            // ========================================
+            // MOUSE MOVE HANDLER
+            // Track mouse position on every move
+            // ========================================
+            $(document).on('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            
+            // ========================================
+            // ANIMATION LOOP
+            // Smooth cursor following using requestAnimationFrame
+            // ========================================
+            function animateCursor() {
+                // Lerp the dot position (faster follow)
+                dotX = lerp(dotX, mouseX, config.lerpFactor * 2);
+                dotY = lerp(dotY, mouseY, config.lerpFactor * 2);
+                
+                // Lerp the ring position (slower follow for trailing effect)
+                ringX = lerp(ringX, mouseX, config.lerpFactor);
+                ringY = lerp(ringY, mouseY, config.lerpFactor);
+                
+                // Apply positions to cursor elements
+                $cursorDot.css({
+                    left: dotX + 'px',
+                    top: dotY + 'px'
+                });
+                
+                $cursorRing.css({
+                    left: ringX + 'px',
+                    top: ringY + 'px'
+                });
+                
+                // Continue animation loop
+                requestAnimationFrame(animateCursor);
+            }
+            
+            // Start the animation loop
+            animateCursor();
+            
+            // ========================================
+            // CLICK ANIMATION
+            // Pulse effect and ripple on click
+            // ========================================
+            $(document).on('mousedown', function(e) {
+                // Add clicking class for scale animation
+                $cursorDot.addClass('clicking');
+                $cursorRing.addClass('clicking');
+                
+                // Create ripple effect at click position
+                createRipple(e.clientX, e.clientY);
+            });
+            
+            $(document).on('mouseup', function() {
+                // Remove clicking class
+                $cursorDot.removeClass('clicking');
+                $cursorRing.removeClass('clicking');
+            });
+            
+            // ========================================
+            // RIPPLE EFFECT
+            // Creates expanding ring animation on click
+            // ========================================
+            function createRipple(x, y) {
+                // Create ripple element
+                const $ripple = $('<div class="cursor-ripple"></div>');
+                
+                // Position at click location
+                $ripple.css({
+                    left: x + 'px',
+                    top: y + 'px'
+                });
+                
+                // Add to body
+                $('body').append($ripple);
+                
+                // Remove after animation completes
+                setTimeout(function() {
+                    $ripple.remove();
+                }, 600);
+            }
+            
+            // ========================================
+            // HOVER DETECTION
+            // Change cursor appearance on clickable elements
+            // ========================================
+            $(document).on('mouseenter', config.clickableSelectors, function() {
+                $cursorDot.addClass('hovering');
+                $cursorRing.addClass('hovering');
+            });
+            
+            $(document).on('mouseleave', config.clickableSelectors, function() {
+                $cursorDot.removeClass('hovering');
+                $cursorRing.removeClass('hovering');
+            });
+            
+            // ========================================
+            // CURSOR VISIBILITY
+            // Hide cursor when leaving window
+            // ========================================
+            $(document).on('mouseleave', function() {
+                $cursorDot.css('opacity', 0);
+                $cursorRing.css('opacity', 0);
+            });
+            
+            $(document).on('mouseenter', function() {
+                $cursorDot.css('opacity', 1);
+                $cursorRing.css('opacity', 1);
+            });
+            
+            // ========================================
+            // INITIAL POSITION 
+            // Set cursor to center of screen initially
+            // ========================================
+            mouseX = dotX = ringX = $(window).width() / 2;
+            mouseY = dotY = ringY = $(window).height() / 2;
+            
+        });
+    </script>
+    
+</body>
+</html>
